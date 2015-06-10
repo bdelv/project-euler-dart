@@ -33,18 +33,21 @@ int Solve(int nDigits) {
       for (int count1 = 1;
           count1 < permut.length - 2;
           count1++) for (int count2 = count1;
-          permut.length - (count1 + count2) > 0;
+          permut.length - ((count1 + count2) * 2 - 1) >= 0;
           count2++) {
-        //int countProduct=permut.length-(count1+count2);
-        int a = int.parse(permut.substring(0, count1));
-        int b = int.parse(permut.substring(count1, count1 + count2));
-        int p = int.parse(permut.substring(count1 + count2, permut.length));
-        if (a < b && a * b == p) {
-          // we found a pandigital product
-          if (!results.contains(p)) {
-            if (DEBUG_MODE) print("$a x $b = $p");
-            results.add(p);
-            _res += p;
+        int countp = permut.length - (count1 + count2);
+        if (countp == count1 + count2 || countp == count1 + count2 - 1) {
+          //int countProduct=permut.length-(count1+count2);
+          int a = int.parse(permut.substring(0, count1));
+          int b = int.parse(permut.substring(count1, count1 + count2));
+          int p = int.parse(permut.substring(count1 + count2, permut.length));
+          if (a < b && a * b == p) {
+            // we found a pandigital product
+            if (!results.contains(p)) {
+              if (DEBUG_MODE) print("$a x $b = $p");
+              results.add(p);
+              _res += p;
+            }
           }
         }
       }
