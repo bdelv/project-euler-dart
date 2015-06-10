@@ -46,6 +46,5 @@ or
 ```
 pub run bin/euler25
 ```
-Disclaimer: Not claiming it is always beautiful Dart code ... blabla ... lawyer terms ... blabla ... not even claiming it is interesting ... blabla ... running the code will display a number ... youhou ... only educative purpose ... hum ... self-educative purpose. 
 
 It's free to use; if you find any use for it.
