@@ -9,59 +9,61 @@ What is the smallest positive number that is evenly divisible by all of the numb
 
 import 'dart:core';
 
-const int NB_DIVIDERS = 20;
-const bool DEBUG_MODE = true;
+const int nbDividers = 20;
+const bool showDebug = true;
 
 // ------------------- Method 1: Brute force ---------------------
-int SolveBruteForce(int NbDividers) {
-  bool DivideTest(int Nb, int NbDividers) {
-    for (int i = (NbDividers ~/ 2) + 1; i <= NbDividers; i++) {
+int solveBruteForce(int nbDividers) {
+  bool divideTest(int Nb, int nbDividers) {
+    for (int i = (nbDividers ~/ 2) + 1; i <= nbDividers; i++) {
       if (Nb % i != 0) return false;
     }
     return true;
   }
-
-  int CurrentNb;
-  for (CurrentNb = 1; !DivideTest(CurrentNb, NbDividers); CurrentNb++);
-  return CurrentNb;
+  int currentNb;
+  for (currentNb = 1; !divideTest(currentNb, nbDividers); currentNb++);
+  return currentNb;
 }
 
 // ------------------- Method 2: Search max number of prime dividers ---------------------
-int Solve(int NB_DIVIDERS) {
+int solve(int nbDividers) {
   // create the lists of dividers for each number
-  List<int> NbDividers = new List<int>(NB_DIVIDERS);
-  NbDividers.fillRange(0, NB_DIVIDERS, 0);
-  NbDividers[0]=1;
+  List<int> listNbDividers = new List<int>(nbDividers);
+  listNbDividers.fillRange(0, nbDividers, 0);
+  listNbDividers[0] = 1;
   // Searches the prime dividers
-  for (int CurrentNb = 2; CurrentNb < NB_DIVIDERS; CurrentNb++) {
-    int Remaining = CurrentNb;
-    int CurrDiv = 2;
-    while (Remaining > 1) {
-      int NbDiv = 0;
-      while (Remaining % CurrDiv == 0) {
-        NbDiv++;
-        Remaining ~/= CurrDiv;
+  for (int currentNb = 2; currentNb < nbDividers; currentNb++) {
+    int remaining = currentNb;
+    int currentDivisor = 2;
+    while (remaining > 1) {
+      int divCount = 0;
+      while (remaining % currentDivisor == 0) {
+        divCount++;
+        remaining ~/= currentDivisor;
       }
-      if (NbDividers[CurrDiv - 1] < NbDiv) NbDividers[CurrDiv - 1] = NbDiv;
-      if (CurrDiv%2==0)CurrDiv++;
-      else CurrDiv+=2;
+      if (listNbDividers[currentDivisor - 1] < divCount) listNbDividers[
+          currentDivisor - 1] = divCount;
+      if (currentDivisor.isEven) currentDivisor++;
+      else currentDivisor += 2;
     }
   }
-  if (DEBUG_MODE) print('Prime divisors found in 1..$NB_DIVIDERS: $NbDividers');
+  if (showDebug) print(
+      'Prime divisors found in 1..$nbDividers: $listNbDividers');
   // Calculate the smallest number
-  int Res = 1;
-  for (int CurrDiv = 1; CurrDiv < NbDividers.length; CurrDiv++) {
-    for (int i = 1; i <= NbDividers[CurrDiv - 1]; i++) Res *= CurrDiv;
+  int result = 1;
+  for (int CurrDiv = 1; CurrDiv < listNbDividers.length; CurrDiv++) {
+    for (int i = 1; i <= listNbDividers[CurrDiv - 1]; i++) result *= CurrDiv;
   }
-  return Res;
+  return result;
 }
 
 void main() {
-  assert(Solve(10) == 2520);
+  assert(solve(10) == 2520);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(NB_DIVIDERS);
-  print('Smallest Number that can be divided by all numbers from 1 to $NB_DIVIDERS : $res');
+  int result = solve(nbDividers);
+  print(
+      'Smallest Number that can be divided by all numbers from 1 to $nbDividers : $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

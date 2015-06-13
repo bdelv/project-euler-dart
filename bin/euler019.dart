@@ -18,66 +18,66 @@ How many Sundays fell on the first of the month during the twentieth century
 (1 Jan 1901 to 31 Dec 2000)?
 */
 
-const int START_YEAR = 1901;
-const int END_YEAR = 2000;
-const bool DEBUG_MODE = true;
+const int startingYear = 1901;
+const int endingYear = 2000;
+const bool showDebug = true;
 
-bool IsLeapYear(int year) {
+bool isLeapYear(int year) {
   if (year % 100 == 0) return (year % 400 == 0);
   return (year % 4 == 0);
 }
 
-int DaysInMonth(int month, int year) {
+int daysCountInMonth(int month, int year) {
   if ([1, 3, 5, 7, 8, 10, 12].contains(month)) return 31;
   else if ([4, 6, 9, 11].contains(month)) return 30;
   else {
-    if (IsLeapYear(year)) return 29;
+    if (isLeapYear(year)) return 29;
     else return 28;
   }
   ;
 }
 
-int Solve(int StartYear, int EndYear) {
-  int CurrentDay = 0;
-  int NbSundays = 0;
-  int CurrYear;
-  // Go to the StartYear
-  for (CurrYear = 1900; CurrYear < StartYear; CurrYear++)
+int solve(int startingYear, int endingYear) {
+  int currentDay = 0;
+  int sundaysCount = 0;
+  int currentYear;
+  // Go to the StartingYear
+  for (currentYear = 1900; currentYear < startingYear; currentYear++)
     for (int month = 1; month <= 12; month++)
-      CurrentDay = (CurrentDay + DaysInMonth(month, CurrYear)) % 7;
-  // Nb of Sundays between StartYear and EndYear
-  for (; CurrYear <= EndYear; CurrYear++) {
-    if (DEBUG_MODE) print('Number of Sundays that fell on the first of the month during the year ${CurrYear}: ${CurrentDay}');
+      currentDay = (currentDay + daysCountInMonth(month, currentYear)) % 7;
+  // Nb of Sundays between StartingYear and EndingYear
+  for (; currentYear <= endingYear; currentYear++) {
+    if (showDebug) print('Number of Sundays that fell on the first of the month during the year ${currentYear}: ${currentDay}');
     for (int month = 1; month <= 12; month++) {
-      if (CurrentDay == 6) NbSundays++;
-      CurrentDay = (CurrentDay + DaysInMonth(month, CurrYear)) % 7;
+      if (currentDay == 6) sundaysCount++;
+      currentDay = (currentDay + daysCountInMonth(month, currentYear)) % 7;
     }
   }
-  return NbSundays;
+  return sundaysCount;
 }
 
 void main() {
-  assert(IsLeapYear(2000));
-  assert(IsLeapYear(2004));
-  assert(!IsLeapYear(1900));
-  assert(!IsLeapYear(2001));
-  assert(DaysInMonth(1, 1900) == 31);
-  assert(DaysInMonth(2, 1900) == 28);
-  assert(DaysInMonth(2, 2000) == 29);
-  assert(DaysInMonth(3, 1900) == 31);
-  assert(DaysInMonth(4, 1900) == 30);
-  assert(DaysInMonth(5, 1900) == 31);
-  assert(DaysInMonth(6, 1900) == 30);
-  assert(DaysInMonth(7, 1900) == 31);
-  assert(DaysInMonth(8, 1900) == 31);
-  assert(DaysInMonth(9, 1900) == 30);
-  assert(DaysInMonth(10, 1900) == 31);
-  assert(DaysInMonth(11, 1900) == 30);
-  assert(DaysInMonth(12, 1900) == 31);
+  assert(isLeapYear(2000));
+  assert(isLeapYear(2004));
+  assert(!isLeapYear(1900));
+  assert(!isLeapYear(2001));
+  assert(daysCountInMonth(1, 1900) == 31);
+  assert(daysCountInMonth(2, 1900) == 28);
+  assert(daysCountInMonth(2, 2000) == 29);
+  assert(daysCountInMonth(3, 1900) == 31);
+  assert(daysCountInMonth(4, 1900) == 30);
+  assert(daysCountInMonth(5, 1900) == 31);
+  assert(daysCountInMonth(6, 1900) == 30);
+  assert(daysCountInMonth(7, 1900) == 31);
+  assert(daysCountInMonth(8, 1900) == 31);
+  assert(daysCountInMonth(9, 1900) == 30);
+  assert(daysCountInMonth(10, 1900) == 31);
+  assert(daysCountInMonth(11, 1900) == 30);
+  assert(daysCountInMonth(12, 1900) == 31);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(START_YEAR,END_YEAR);
-  print('Number of Sundays that fell on the first of the month between $START_YEAR and $END_YEAR: $res');
+  int result = solve(startingYear,endingYear);
+  print('Number of Sundays that fell on the first of the month between $startingYear and $endingYear: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

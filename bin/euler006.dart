@@ -17,29 +17,29 @@ numbers and the square of the sum.
 
 import 'dart:core';
 
-const int NB_COUNT = 100;
-const bool DEBUG_MODE = true;
+const int numberCount = 100;
+const bool showDebug = true;
 
-int Solve(int NbCount) {
-  int SquareOfSum = 0;
-  int SumOfSquare = 0;
-  for (int i = 1; i <= NbCount; i++) {
-    SquareOfSum += i;
-    SumOfSquare += i * i;
+int solve(int numberCount) {
+  int squareOfSum = 0;
+  int sumOfSquare = 0;
+  for (int i = 1; i <= numberCount; i++) {
+    squareOfSum += i;
+    sumOfSquare += i * i;
   }
-  SquareOfSum *=SquareOfSum;
-  if (DEBUG_MODE) {
-    print("SquareOfSum($NbCount)=$SquareOfSum, SumOfSquare($NbCount)=$SumOfSquare");
+  squareOfSum *=squareOfSum;
+  if (showDebug) {
+    print("SquareOfSum($numberCount)=$squareOfSum, SumOfSquare($numberCount)=$sumOfSquare");
   }
-  return SquareOfSum - SumOfSquare;
+  return squareOfSum - sumOfSquare;
 }
 
 void main() {
-  assert(Solve(10) == 2640);
+  assert(solve(10) == 2640);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(NB_COUNT);
-  print('Square_of_the_sum($NB_COUNT) - sum_of_the_squares($NB_COUNT) = $res');
+  int result = solve(numberCount);
+  print('Square_of_the_sum($numberCount) - sum_of_the_squares($numberCount) = $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

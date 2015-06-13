@@ -13,16 +13,16 @@ How many different ways can £2 be made using any number of coins?
 
 import 'dart:core';
 
-const int AMOUNT = 200;
-const bool DEBUG_MODE = false;
+const int cashAmount = 200;
+const bool showDebug = false;
 
 List<int> coinsAvailable = [200, 100, 50, 20, 10, 5, 2, 1];
 
-int Solve(int Amount) {
+int solve(int cashAmount) {
   int coinsPermut(
       int remaining, List<int> _coinsTaken, List<int> _coinsAvailable) {
     if (remaining == 0) {
-      if (DEBUG_MODE) print(_coinsTaken);
+      if (showDebug) print(_coinsTaken);
       return 1;
     }
     int _res = 0;
@@ -43,15 +43,15 @@ int Solve(int Amount) {
   }
   List<int> _emptyCoinsTaken = new List<int>(coinsAvailable.length)
     ..fillRange(0, coinsAvailable.length, 0);
-  int _res = coinsPermut(Amount, _emptyCoinsTaken, coinsAvailable);
+  int _res = coinsPermut(cashAmount, _emptyCoinsTaken, coinsAvailable);
   return _res;
 }
 
 void main() {
   DateTime creationTime = new DateTime.now();
-  int res = Solve(AMOUNT);
+  int result = solve(cashAmount);
   print(
-      "Dfferent ways $AMOUNT pences can be made using any number of the coins $coinsAvailable: $res");
+      "Dfferent ways $cashAmount pences can be made using any number of the coins $coinsAvailable: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

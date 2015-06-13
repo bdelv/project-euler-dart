@@ -23,35 +23,35 @@ What is the value of the first triangle number to have over five hundred divisor
 import 'dart:core';
 import 'dart:math' as math;
 
-const int NB_DIVISORS = 500;
-const bool DEBUG_MODE = true;
+const int nbDivisors = 500;
+const bool showDebug = true;
 
-int Solve(int NB_DIVISORS) {
-  int MaxDivisors = 0;
+int solve(int nbDivisors) {
+  int maxDivisors = 0;
 
-  int TriangleNumber = 0;
+  int triangleNumber = 0;
   for (int i = 1;; i++) {
-    TriangleNumber += i;
+    triangleNumber += i;
 
     int NbDivisors = 0;
-    int limit=math.sqrt(TriangleNumber).floor();
+    int limit=math.sqrt(triangleNumber).floor();
     for (int j = 1;
         j < limit;
-        j++) if (TriangleNumber % j == 0) NbDivisors+=2;
-    if (NbDivisors > MaxDivisors) {
-      MaxDivisors = NbDivisors;
-      if (DEBUG_MODE) print("Nb divisors found: $MaxDivisors (from triangle number $TriangleNumber)");
+        j++) if (triangleNumber % j == 0) NbDivisors+=2;
+    if (NbDivisors > maxDivisors) {
+      maxDivisors = NbDivisors;
+      if (showDebug) print("Nb divisors found: $maxDivisors (from triangle number $triangleNumber)");
     }
-    if (NbDivisors >= NB_DIVISORS) return TriangleNumber;
+    if (NbDivisors >= nbDivisors) return triangleNumber;
   }
 }
 
 void main() {
-  assert(Solve(5) == 28);
+  assert(solve(5) == 28);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(NB_DIVISORS);
-  print('First triangle number with at least $NB_DIVISORS divisors: $res');
+  int result = solve(nbDivisors);
+  print('First triangle number with at least $nbDivisors divisors: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

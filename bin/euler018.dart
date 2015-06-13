@@ -35,16 +35,16 @@ it cannot be solved by brute force, and requires a clever method! ;o)
 import 'dart:core';
 import 'dart:math';
 
-const DEBUG_MODE = true;
+const showDebug = true;
 
-List<String> ListStrTest = [
+List<String> listStrTest = [
 "3",
 "7 4",
 "2 4 6",
 "8 5 9 3"
 ];
 
-List<String> ListStr = [
+List<String> listStr = [
   "75",
   "95 64",
   "17 47 82",
@@ -62,44 +62,44 @@ List<String> ListStr = [
   "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"
 ];
 
-int Solve(List<String> ListStr) {
-  List<List<int>> ListInt = new List<List<int>>();
-  List<List<int>> ListCache = new List<List<int>>();
+int solve(List<String> listStr) {
+  List<List<int>> listInt = new List<List<int>>();
+  List<List<int>> listCache = new List<List<int>>();
 
-  int MaxTotal(int x, int y) {
-    int res = ListCache[y][x];
-    if (res >= 0) return res;
-    res = ListInt[y][x];
-    if (y < ListInt.length - 1) {
-      res += max(MaxTotal(x, y + 1), MaxTotal(x + 1, y + 1));
+  int maxTotal(int x, int y) {
+    int result = listCache[y][x];
+    if (result >= 0) return result;
+    result = listInt[y][x];
+    if (y < listInt.length - 1) {
+      result += max(maxTotal(x, y + 1), maxTotal(x + 1, y + 1));
     }
-    ListCache[y][x] = res;
-    return res;
+    listCache[y][x] = result;
+    return result;
   }
 
   // converts the file to integers
-  for (int y = 0; y < ListStr.length; y++) {
-    var parts = ListStr[y].split(' ');
+  for (int y = 0; y < listStr.length; y++) {
+    var parts = listStr[y].split(' ');
     List<int> tmpInt = new List<int>();
     List<int> tmpCache = new List<int>();
     parts.forEach((e) {
       tmpInt.add(int.parse(e));
       tmpCache.add(-1);
     });
-    ListInt.add(tmpInt);
-    ListCache.add(tmpCache);
+    listInt.add(tmpInt);
+    listCache.add(tmpCache);
   }
   // Search for the max total up to bottom
-  if (DEBUG_MODE) ListStr.forEach((Str)=>print(Str));
-  return MaxTotal(0,0);
+  if (showDebug) listStr.forEach((Str)=>print(Str));
+  return maxTotal(0,0);
 }
 
 void main() {
-  assert(Solve(ListStrTest) == 23);
+  assert(solve(listStrTest) == 23);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(ListStr);
-  print('Maximum total from top to bottom of the given triangle: $res');
+  int result = solve(listStr);
+  print('Maximum total from top to bottom of the given triangle: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

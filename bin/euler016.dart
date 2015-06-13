@@ -10,56 +10,49 @@ What is the sum of the digits of the number 2^1000?
 import 'dart:core';
 import 'dart:math';
 
-const int POWER = 1000;
-const bool DEBUG_MODE = true;
+const int powerOf2 = 1000;
+const bool showDebug = true;
 // true uses Dart internal BigInt. Doesn't work through dart2js
-const bool INTERNAL_BIGINT = false;
+const bool useInternalBigInteger = false;
 
-// ------------- Method 1: works on VM but not on JS (BigInt) --------
-int SolveBigInt(int Power) {
-  int res = pow(2, Power);
-  String str = res.toString();
-  int sum = 0;
-  for (int i = 0; i < str.length; i++) sum += int.parse(str[i]);
-  if (DEBUG_MODE) print("2^$Power = $str");
-  return sum;
-}
-
-// ------------- Method 2: works on VM and JS --------
-int Solve(int Power) {
-  List<int> res = new List<int>();
-  res.add(1);
-  int remain = 0;
-  for (int ipow = 1; ipow <= Power; ipow++) {
-    for (int icar = 0; icar < res.length; icar++) {
-      int subsum = remain + (res[icar] * 2);
-      res[icar] = subsum % 10;
-      remain = subsum ~/ 10;
+int solve(int powerOf2) {
+  // ------------- Method 1: works on VM but not on JS (BigInt) --------
+  if (useInternalBigInteger) {
+    String str = pow(2, powerOf2).toString();
+    int sum = 0;
+    for (int i = 0; i < str.length; i++) sum += int.parse(str[i]);
+    if (showDebug) print("2^$powerOf2 = $str");
+    return sum;
+  } else {
+    // ------------- Method 2: works on VM and JS --------
+    List<int> result = new List<int>();
+    result.add(1);
+    int remain = 0;
+    for (int ipow = 1; ipow <= powerOf2; ipow++) {
+      for (int icar = 0; icar < result.length; icar++) {
+        int subsum = remain + (result[icar] * 2);
+        result[icar] = subsum % 10;
+        remain = subsum ~/ 10;
+      }
+      if (remain > 0) {
+        result.add(remain);
+        remain = 0;
+      }
     }
-    if (remain > 0) {
-      res.add(remain);
-      remain = 0;
-    }
+    if (showDebug) print("2^$powerOf2 = $result");
+    // calculate the sum of the digits
+    int sum = 0;
+    for (int i = 0; i < result.length; i++) sum += result[i];
+    return sum;
   }
-  if (DEBUG_MODE) print("2^$Power = $res");
-  // calculate the sum of the digits
-  int sum = 0;
-  for (int i = 0; i < res.length; i++) sum += res[i];
-  return sum;
 }
 
 void main() {
-  if (INTERNAL_BIGINT)
-    assert(SolveBigInt(15) == 26);
-  else
-    assert(Solve(15) == 26);
-  //assert(Solve(1000) == 1366);
+  assert(solve(15) == 26);
 
   DateTime creationTime = new DateTime.now();
-  int res;
-  if (INTERNAL_BIGINT) res=SolveBigInt(POWER);
-  else res=Solve(POWER);
-  print('Sum of digits of 2^$POWER = $res');
+  int result = solve(powerOf2);
+  print('Sum of digits of 2^$powerOf2 = $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

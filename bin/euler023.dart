@@ -22,45 +22,45 @@ Find the sum of all the positive integers which cannot be written as the sum of 
 
 import 'dart:core';
 
-const MAX_NUMBER = 28123;
-const bool DEBUG_MODE = true;
+const maxNumber = 28123;
+const bool showDebug = true;
 
-int SumOfProperDivisors(int num) {
+int sumOfProperDivisors(int num) {
   if (num == 1) return 1;
   int sum = 0;
   for (int i = 1; i <= num ~/ 2; i++) if (num % i == 0) sum += i;
   return sum;
 }
 
-int Solve(int MaxNumber) {
-  List<int> Abundant = new List<int>();
-  List<bool> SumAb = new List<bool>(MaxNumber + 1);
-  SumAb.fillRange(0, MaxNumber + 1, false);
+int solve(int maxNumber) {
+  List<int> abundantList = new List<int>();
+  List<bool> sumAbundants = new List<bool>(maxNumber + 1);
+  sumAbundants.fillRange(0, maxNumber + 1, false);
 
   // List of Abundant numbers
-  for (int i = 1; i <= MaxNumber; i++) {
-    int SumDiv = SumOfProperDivisors(i);
-    if (SumDiv > i) Abundant.add(i);
+  for (int i = 1; i <= maxNumber; i++) {
+    int sumDivisors = sumOfProperDivisors(i);
+    if (sumDivisors > i) abundantList.add(i);
   }
   // Calculates the sums of abundant numbers and cache it
-  for (int i = 0; i < Abundant.length; i++)
-    for (int j = 0; j < Abundant.length; j++) {
-      int sum = Abundant[i] + Abundant[j];
-      if (sum <= MaxNumber) SumAb[sum] = true;
+  for (int i = 0; i < abundantList.length; i++)
+    for (int j = 0; j < abundantList.length; j++) {
+      int sum = abundantList[i] + abundantList[j];
+      if (sum <= maxNumber) sumAbundants[sum] = true;
   }
-  if (DEBUG_MODE) print("abundant numbers: $Abundant");
+  if (showDebug) print("abundant numbers: $abundantList");
   // Calculate the sum of the numbers that cannot be written by the sum of 2 abundant numbers
   int total = 0;
-  for (int i = 1; i <= MaxNumber; i++) if (!SumAb[i]) total += i;
+  for (int i = 1; i <= maxNumber; i++) if (!sumAbundants[i]) total += i;
   return total;
 }
 
 void main() {
-  assert(SumOfProperDivisors(28) == 28);
+  assert(sumOfProperDivisors(28) == 28);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX_NUMBER);
-  print("Sum of all the positive integers (<=$MAX_NUMBER) which cannot be written as the sum of two abundant numbers: $res");
+  int result = solve(maxNumber);
+  print("Sum of all the positive integers (<=$maxNumber) which cannot be written as the sum of two abundant numbers: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

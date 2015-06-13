@@ -11,10 +11,10 @@ product. What is the value of this product?
 
 import 'dart:core';
 
-const int MAX_COUNT = 13;
-const bool DEBUG_MODE = true;
+const int adjacentDigitsCount = 13;
+const bool showDebug = true;
 
-int Solve(int MaxCount) {
+int solve(int adjacentDigitsCount) {
   const String Number =
       '73167176531330624919225119674426574742355349194934'
       '96983520312774506326239578318016984801869478851843'
@@ -37,27 +37,27 @@ int Solve(int MaxCount) {
       '05886116467109405077541002256983155200055935729725'
       '71636269561882670428252483600823257530420752963450';
 
-  int MaxProduct = 0;
-  String MaxSub = '';
-  for (int i = 0; i <= Number.length - MaxCount; i++) {
-    String sub = Number.substring(i, i + MaxCount);
-    int TempProduct = 1;
-    for (int j = 0; j < sub.length; j++) TempProduct *= int.parse(sub[j]);
-    if (TempProduct > MaxProduct) {
-      MaxProduct = TempProduct;
-      MaxSub = sub;
+  int maxProduct = 0;
+  String maxSub = '';
+  for (int i = 0; i <= Number.length - adjacentDigitsCount; i++) {
+    String sub = Number.substring(i, i + adjacentDigitsCount);
+    int tempProduct = 1;
+    for (int j = 0; j < sub.length; j++) tempProduct *= int.parse(sub[j]);
+    if (tempProduct > maxProduct) {
+      maxProduct = tempProduct;
+      maxSub = sub;
     }
   }
-  if (DEBUG_MODE) print('Max Sub($MaxCount): $MaxSub');
-  return MaxProduct;
+  if (showDebug) print('Max Sub($adjacentDigitsCount): $maxSub');
+  return maxProduct;
 }
 
 void main() {
-  assert(Solve(4) == 5832);
+  assert(solve(4) == 5832);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX_COUNT);
-  print('max product of $MAX_COUNT adjacent digits in the 1000-digit given number: $res');
+  int result = solve(adjacentDigitsCount);
+  print('max product of $adjacentDigitsCount adjacent digits in the 1000-digit given number: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

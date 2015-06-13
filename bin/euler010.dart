@@ -9,44 +9,44 @@ Find the sum of all the primes below two million.
 import 'dart:core';
 import 'dart:math';
 
-const int MAX_PRIME = 2000000;
-const bool DEBUG_MODE = false;
+const int maxPrime = 2000000;
+const bool showDebug = false;
 
-int Solve(int MaxPrime) {
-  List<int> PrimesList = new List<int>(MaxPrime);
+int solve(int maxPrime) {
+  List<int> primesList = new List<int>(maxPrime);
 
-  int IdxPrime = 0;
-  PrimesList[IdxPrime++] = 2;
-  int Sum = 2;
-  int NumberToTest = 1;
-  while (NumberToTest + 2 < MaxPrime) {
-    NumberToTest += 2; // only checks the odd numbers
-    int SqRoot = sqrt(NumberToTest).floor();
+  int idxPrime = 0;
+  primesList[idxPrime++] = 2;
+  int sumPrimes = 2;
+  int numberToTest = 1;
+  while (numberToTest + 2 < maxPrime) {
+    numberToTest += 2; // only checks the odd numbers
+    int sqRoot = sqrt(numberToTest).floor();
     bool IsPrime = true;
     for (int i = 0; ; i++) {
       // current prime is bigger than the square root of current number => prime number
-      if (PrimesList[i] > SqRoot) break;
+      if (primesList[i] > sqRoot) break;
       // current prime divides the current number? => non prime number
-      if (NumberToTest % PrimesList[i] == 0) {
+      if (numberToTest % primesList[i] == 0) {
         IsPrime = false;
         break;
       }
     }
     if (IsPrime) {
-      PrimesList[IdxPrime++] = NumberToTest;
-      Sum += NumberToTest;
-      if (DEBUG_MODE) print(NumberToTest);
+      primesList[idxPrime++] = numberToTest;
+      sumPrimes += numberToTest;
+      if (showDebug) print(numberToTest);
     }
   }
-  return Sum;
+  return sumPrimes;
 }
 
 void main() {
-  assert(Solve(10) == 17);
+  assert(solve(10) == 17);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX_PRIME);
-  print('Sum of primes below $MAX_PRIME = $res');
+  int result = solve(maxPrime);
+  print('Sum of primes below $maxPrime = $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

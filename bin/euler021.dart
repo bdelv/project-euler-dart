@@ -15,36 +15,36 @@ Evaluate the sum of all the amicable numbers under 10000.
 
 import 'dart:core';
 
-const int MAX_NB = 10000;
-const bool DEBUG_MODE = true;
+const int maxAmicablesNumber = 10000;
+const bool showDebug = true;
 
-int SumOfDivisors(int num) {
+int sumOfDivisors(int num) {
   int sum = 0;
   for (int i = 1; i <= num ~/ 2; i++) if (num % i == 0) sum += i;
   return sum;
 }
 
-int Solve(int MaxNb) {
-  int Sum = 0;
-  for (int i = 1; i < MaxNb; i++) {
-    int SumDiv = SumOfDivisors(i);
-    if ((SumDiv != i) && (SumDiv < MaxNb)) {
-      if (SumOfDivisors(SumDiv) == i) {
-        Sum += i;
-        if (DEBUG_MODE) print("amicable number: $SumDiv");
+int solve(int maxAmicablesNumber) {
+  int sum = 0;
+  for (int i = 1; i < maxAmicablesNumber; i++) {
+    int sumDiv = sumOfDivisors(i);
+    if ((sumDiv != i) && (sumDiv < maxAmicablesNumber)) {
+      if (sumOfDivisors(sumDiv) == i) {
+        sum += i;
+        if (showDebug) print("amicable number: $sumDiv");
       }
     }
   }
-  return Sum;
+  return sum;
 }
 
 void main() {
-  assert(SumOfDivisors(220) == 284);
-  assert(SumOfDivisors(284) == 220);
+  assert(sumOfDivisors(220) == 284);
+  assert(sumOfDivisors(284) == 220);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX_NB);
-  print('Sum of amicables < $MAX_NB: $res');
+  int result = solve(maxAmicablesNumber);
+  print('Sum of amicables < $maxAmicablesNumber: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

@@ -17,16 +17,16 @@ Find the maximum total from top to bottom of the triangle below:
 import 'dart:core';
 import 'dart:math';
 
-const bool DEBUG_MODE = true;
+const bool showDebug = true;
 
-List<String> ListStrTest =[
+List<String> listStrTest =[
 "3",
 "7 4",
 "2 4 6",
 "8 5 9 3"
 ];
 
-List<String> ListStr = [
+List<String> listStr = [
 "59",
 "73 41",
 "52 40 09",
@@ -129,44 +129,44 @@ List<String> ListStr = [
 "23 33 44 81 80 92 93 75 94 88 23 61 39 76 22 03 28 94 32 06 49 65 41 34 18 23 08 47 62 60 03 63 33 13 80 52 31 54 73 43 70 26 16 69 57 87 83 31 03 93 70 81 47 95 77 44 29 68 39 51 56 59 63 07 25 70 07 77 43 53 64 03 94 42 95 39 18 01 66 21 16 97 20 50 90 16 70 10 95 69 29 06 25 61 41 26 15 59 63 35"
 ];
 
-int Solve(List<String> ListStr) {
-  List<List<int>> ListInt = new List<List<int>>();
-  List<List<int>> ListCache = new List<List<int>>();
+int solve(List<String> listStr) {
+  List<List<int>> listInt = new List<List<int>>();
+  List<List<int>> cacheSum = new List<List<int>>();
 
-  int MaxTotal(int x, int y) {
-    int res = ListCache[y][x];
-    if (res >= 0) return res;
-    res = ListInt[y][x];
-    if (y < ListInt.length - 1) {
-      res += max(MaxTotal(x, y + 1), MaxTotal(x + 1, y + 1));
+  int maxTotal(int x, int y) {
+    int result = cacheSum[y][x];
+    if (result >= 0) return result;
+    result = listInt[y][x];
+    if (y < listInt.length - 1) {
+      result += max(maxTotal(x, y + 1), maxTotal(x + 1, y + 1));
     }
-    ListCache[y][x] = res;
-    return res;
+    cacheSum[y][x] = result;
+    return result;
   }
 
   // converts the file to integers
-  for (int y = 0; y < ListStr.length; y++) {
-    var parts = ListStr[y].split(' ');
+  for (int y = 0; y < listStr.length; y++) {
+    var parts = listStr[y].split(' ');
     List<int> tmpInt = new List<int>();
     List<int> tmpCache = new List<int>();
     parts.forEach((e) {
       tmpInt.add(int.parse(e));
       tmpCache.add(-1);
     });
-    ListInt.add(tmpInt);
-    ListCache.add(tmpCache);
+    listInt.add(tmpInt);
+    cacheSum.add(tmpCache);
   }
   // Search for the max total up to bottom
-  if (DEBUG_MODE) ListStr.forEach((Str)=>print(Str));
-  return MaxTotal(0,0);
+  if (showDebug) listStr.forEach((Str)=>print(Str));
+  return maxTotal(0,0);
 }
 
 void main() {
-  assert(Solve(ListStrTest) == 23);
+  assert(solve(listStrTest) == 23);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(ListStr);
-  print('Maximum total from top to bottom of the given triangle: $res');
+  int result = solve(listStr);
+  print('Maximum total from top to bottom of the given triangle: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

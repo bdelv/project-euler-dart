@@ -14,41 +14,44 @@ What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 
 
 import 'dart:core';
 
-const int MAX_DIGIT = 9;
-const int COUNT_STOP = 1000000;
-const bool DEBUG_MODE = false;
+const int digitsCount = 9;
+const int nthPermutation = 1000000;
+const bool showDebug = false;
 
-int Solve(int MaxDigit, int CountStop) {
+int solve(int digitsCount, int nthPermutation) {
   int Count = 0;
 
   // Create the initial string
   String str = '';
-  for (int i = 0; i <= MaxDigit; i++) str += i.toString();
+  for (int i = 0; i <= digitsCount; i++) str += i.toString();
 
-  String Permut(String Left, String right) {
-    if (Count >= CountStop) return(Left+right);
-    if (right == "") {
+  String permut(String leftPart, String rightPart) {
+    if (Count >= nthPermutation) return (leftPart + rightPart);
+    if (rightPart == "") {
       Count++;
-      if (DEBUG_MODE) print(Left);
+      if (showDebug) print(leftPart);
     }
-    for (int i = 0; i < right.length; i++) {
-      if (Count >= CountStop) return(Left+right);
+    for (int i = 0; i < rightPart.length; i++) {
+      if (Count >= nthPermutation) return (leftPart + rightPart);
       else {
-        String res = Permut(Left + right[i], right.substring(0, i) + right.substring(i + 1, right.length));
-        if (Count >= CountStop) return(res);
+        String result = permut(leftPart + rightPart[i],
+            rightPart.substring(0, i) +
+                rightPart.substring(i + 1, rightPart.length));
+        if (Count >= nthPermutation) return (result);
       }
     }
-    return Left+right;
+    return leftPart + rightPart;
   }
-  return int.parse(Permut('', str));
+  return int.parse(permut('', str));
 }
 
 void main() {
-  assert(Solve(2,6) == 210);
+  assert(solve(2, 6) == 210);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX_DIGIT, COUNT_STOP);
-  print("millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9: $res");
+  int result = solve(digitsCount, nthPermutation);
+  print(
+      "millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

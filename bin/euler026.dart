@@ -23,56 +23,56 @@ in its decimal fraction part.
 
 import 'dart:core';
 
-const MAX = 1000;
-const bool DEBUG_MODE = true;
+const maxD = 1000;
+const bool showDebug = true;
 
-String FindCycle(int denominator) {
-  String res = '';
-  List<int> Used = new List<int>(denominator);
-  Used.fillRange(0, denominator, -1);
+String findCycle(int denominator) {
+  String result = '';
+  List<int> usedNominators = new List<int>(denominator);
+  usedNominators.fillRange(0, denominator, -1);
 
   int nominator = 1;
   while (nominator > 0) {
     nominator *= 10;
     int newnum = nominator ~/ denominator;
     nominator %= denominator;
-    int idx = Used[nominator];
+    int idx = usedNominators[nominator];
     if (idx >= 0) {
-      res = res.substring(idx, res.length);
+      result = result.substring(idx, result.length);
       break;
     } else {
-      Used[nominator] = res.length;
-      res += newnum.toString();
+      usedNominators[nominator] = result.length;
+      result += newnum.toString();
     }
   }
-  return res;
+  return result;
 }
 
-int Solve(int Max) {
-  String MaxCycle = '';
-  int MaxValue = 0;
+int solve(int maxD) {
+  String maxCycle = '';
+  int maxValue = 0;
 
-  for (int i = 2; i < Max; i++) {
-    String tmpCycle = FindCycle(i);
-    if (tmpCycle.length > MaxCycle.length) {
-      MaxCycle = tmpCycle;
-      MaxValue = i;
+  for (int i = 2; i < maxD; i++) {
+    String tmpCycle = findCycle(i);
+    if (tmpCycle.length > maxCycle.length) {
+      maxCycle = tmpCycle;
+      maxValue = i;
     }
   }
-  if (DEBUG_MODE) {
-    print("Cycle($Max): $MaxCycle");
-    print("CycleLength($Max): ${MaxCycle.length}");
+  if (showDebug) {
+    print("Cycle($maxD): $maxCycle");
+    print("CycleLength($maxD): ${maxCycle.length}");
   }
-  return MaxValue;
+  return maxValue;
 }
 
 void main() {
-  assert(FindCycle(6).length == 1);
-  assert(FindCycle(7).length == 6);
+  assert(findCycle(6).length == 1);
+  assert(findCycle(7).length == 6);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX);
-  print("Value of d < $MAX for which 1/d contains the longest recurring cycle in its decimal fraction part: $res");
+  int result = solve(maxD);
+  print("Value of d < $maxD for which 1/d contains the longest recurring cycle in its decimal fraction part: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

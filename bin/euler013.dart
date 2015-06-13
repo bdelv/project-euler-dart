@@ -6,10 +6,10 @@ Work out the first ten digits of the sum of the following one-hundred 50-digit n
  */
 import 'dart:core';
 
-const FIRST_DIGITS=10;
-const bool DEBUG_MODE = true;
+const sumFirstDigitsCount=10;
+const bool showDebug = true;
 
-List ListNumbers = [
+List listNumbers = [
   "37107287533902102798797998220837590246510135740250",
   "46376937677490009712648124896970078050417018260538",
   "74324986199524741059474233309513058123726617309629",
@@ -112,25 +112,25 @@ List ListNumbers = [
   "53503534226472524250874054075591789781264330331690"
 ];
 
-int Solve() {
-  String Sum = '';
-  int UnitSum = 0;
-  for (int i = ListNumbers[0].length - 1; i >= 0; i--) {
-    for (int j = 0; j < ListNumbers.length; j++) {
-      UnitSum += int.parse(ListNumbers[j][i]);
+int solve() {
+  String sum = '';
+  int unitSum = 0;
+  for (int i = listNumbers[0].length - 1; i >= 0; i--) {
+    for (int j = 0; j < listNumbers.length; j++) {
+      unitSum += int.parse(listNumbers[j][i]);
     }
-    Sum = (UnitSum % 10).toString() + Sum;
-    UnitSum ~/= 10;
+    sum = (unitSum % 10).toString() + sum;
+    unitSum ~/= 10;
   }
-  if (UnitSum > 0) Sum = UnitSum.toString() + Sum;
-  if (DEBUG_MODE) print("Complete sum: $Sum");
-  return int.parse(Sum.toString().substring(0,FIRST_DIGITS));
+  if (unitSum > 0) sum = unitSum.toString() + sum;
+  if (showDebug) print("Complete sum: $sum");
+  return int.parse(sum.toString().substring(0,sumFirstDigitsCount));
 }
 
 void main() {
   DateTime creationTime = new DateTime.now();
-  int res = Solve();
+  int result = solve();
   DateTime finishTime = new DateTime.now();
-  print('First $FIRST_DIGITS digits of the sum: $res');
+  print('First $sumFirstDigitsCount digits of the sum: $result');
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

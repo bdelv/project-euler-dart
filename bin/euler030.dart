@@ -17,13 +17,13 @@ Find the sum of all the numbers that can be written as the sum of fifth powers o
 import 'dart:core';
 import 'dart:math' as math;
 
-const int POWER = 5;
-const bool DEBUG_MODE = true;
+const int nthPower = 5;
+const bool showDebug = true;
 
-int Solve(int Power) {
+int solve(int nthPower) {
   // Cache the power calculations
   List<int> powerTable = new List<int>(10);
-  for (int i = 0; i < 10; i++) powerTable[i] = math.pow(i, Power);
+  for (int i = 0; i < 10; i++) powerTable[i] = math.pow(i, nthPower);
   // Search for the maximum number worth testing
   int nbDigits = 1;
   while ((powerTable[9] * nbDigits).toString().length > nbDigits) nbDigits++;
@@ -44,20 +44,20 @@ int Solve(int Power) {
     // It's a match!
     if (_digitsCount > 1 && _num == _sum) {
       _res += _num;
-      if (DEBUG_MODE) print("power($Power): $_num");
+      if (showDebug) print("power($nthPower): $_num");
     }
   }
-  if (DEBUG_MODE) print("power($Power): sum = $_res");
+  if (showDebug) print("power($nthPower): sum = $_res");
   return _res;
 }
 
 void main() {
-  assert(Solve(4) == 19316);
+  assert(solve(4) == 19316);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(POWER);
+  int result = solve(nthPower);
   print(
-      "Sum of all the numbers that can be written as the sum of fifth powers of their digits: $res");
+      "Sum of all the numbers that can be written as the sum of fifth powers of their digits: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

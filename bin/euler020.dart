@@ -8,41 +8,43 @@ and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
 Find the sum of the digits in the number 100!
 
 Note:
-- SolveInt(): uses Dart internal BigInt (doesn't work with dart2js)
-- Solve(): uses a simplified BigInt class (works in the VM and in Javascript)
+- solveInt(): uses Dart internal BigInt (doesn't work with dart2js)
+- solve(): uses a simplified BigInt class (works in the VM and in Javascript)
 */
 
 import 'dart:core';
 
-const int N=100;
-const DEBUG_MODE = true;
+const int N = 100;
+const showDebug = true;
 // true = uses Dart internal BigInt (Doesn't work with dart2js)
-const INTERNAL_BIGINT = false;
+const useInternalBigInteger = false;
 
 /* very basic BigInt class */
 class BigInt {
-  List<int> Digits;
+  List<int> digitsList;
   int get length => _getlength();
   // Returns the object at the given [index] in the list
   int operator [](int index) {
-    if (index < 0)
-      throw new RangeError("get[]: index $index out of range [0...${this.length}]");
+    if (index < 0) throw new RangeError(
+        "get[]: index $index out of range [0...${this.length}]");
     if (index >= length) return 0;
-    return Digits[index];
+    return digitsList[index];
   }
   // Setter [] on the digits
   void operator []=(int index, int value) {
-    if (index<0)
-      throw new RangeError("set[]: index $index out of range (<0)");
-    for (int i = Digits.length; i <= index; i++) this.addDigit(0);
-    Digits[index] = value;
+    if (index <
+        0) throw new RangeError("set[]: index $index out of range (<0)");
+    for (int i = digitsList.length; i <= index; i++) this.addDigit(0);
+    digitsList[index] = value;
   }
   // constructor
   BigInt([int a]) {
-    Digits = new List<int>();
-    if (a!=null) this.fromInt(a);
+    digitsList = new List<int>();
+    if (a != null) this.fromInt(a);
   }
-  static BigInt nbi() { return new BigInt(null); }
+  static BigInt nbi() {
+    return new BigInt(null);
+  }
   // new bigint initialized to i
   static BigInt nbv(int i) {
     var r = nbi();
@@ -51,34 +53,35 @@ class BigInt {
   }
   // Add a digit on the left side of the number
   void addDigit(int d) {
-    Digits.add(d);
+    digitsList.add(d);
   }
   // removes excessive 0s
   void clamp() {
-    if (Digits == null) return;
-    if (Digits.length == 0) return;
-    for (int i = Digits.length - 1; i>=0; i--)
-      if (Digits[i] == 0) Digits.removeAt(i);
-      else break;
+    if (digitsList == null) return;
+    if (digitsList.length == 0) return;
+    for (int i = digitsList.length - 1;
+        i >= 0;
+        i--) if (digitsList[i] == 0) digitsList.removeAt(i);
+    else break;
   }
   // returns the length of the big number
   int _getlength() {
-    if (Digits == null) return 0;
+    if (digitsList == null) return 0;
     this.clamp();
-    return Digits.length;
+    return digitsList.length;
   }
   // Imports the value of the big number from a regular Integer
   void fromInt(int a) {
-    Digits.clear();
-    while(a>0) {
-      Digits.add(a % 10);
-      a ~/=10;
+    digitsList.clear();
+    while (a > 0) {
+      digitsList.add(a % 10);
+      a ~/= 10;
     }
   }
   // Adds a big number and stores the result in r
   void addTo(BigInt a, BigInt r) {
     int _remain = 0;
-    int _idx=0;
+    int _idx = 0;
     int _sum;
     while (_idx < a.length || _idx < this.length || _remain > 0) {
       _sum = this[_idx] + a[_idx] + _remain;
@@ -90,7 +93,7 @@ class BigInt {
   // adds a big number to this and returns the result
   BigInt add(BigInt a) {
     BigInt r = nbi();
-    this.addTo(a,r);
+    this.addTo(a, r);
     return r;
   }
   // Multiplies the current value by a big number and stores the result in r
@@ -112,65 +115,58 @@ class BigInt {
   // Multiplies a big number to this and returns the result
   BigInt multiply(a) {
     var r = nbi();
-    if (a is num)
-      this.multiplyTo(nbv(a),r);
-    else
-      this.multiplyTo(a,r);
+    if (a is num) this.multiplyTo(nbv(a), r);
+    else this.multiplyTo(a, r);
     return r;
   }
   // converts the big number to a string
   String toString() {
     String _res = "";
-    int _len = Digits.length;
-    for (int _idx = 0; _idx < _len; _idx++) _res = Digits[_idx].toString() + _res;
+    int _len = digitsList.length;
+    for (int _idx = 0;
+        _idx < _len;
+        _idx++) _res = digitsList[_idx].toString() + _res;
     return _res;
   }
   BigInt operator +(BigInt other) => add(other);
   BigInt operator *(other) => multiply(other);
 }
 
-// ------------ Method 2: Uses simplified BigInt (works in VM and in Javascript) -----------
-int Solve(int n) {
-  // Factorial
-  BigInt res = new BigInt(1);
-  for (int i=2;i<=n;i++) res *= i;
-  String resStr = res.toString();
-  // Sum of the digits of the factorial
-  int sum=0;
-  for (int i=0;i<resStr.length;i++) sum+=int.parse(resStr[i]);
-  if (DEBUG_MODE) print('${N}!: $res');
-  return sum;
-}
-
 // ------------ Method 1: Uses dart internal BigInt (Doesn't work in Javascript) -----------
-int SolveBigInt(int n) {
-  // Factorial
-  int res=1;
-  for (int i=2;i<=n;i++) res*=i;
-  String resStr=res.toString();
-  // Sum of the digits of the factorial
-  int sum=0;
-  for (int i=0;i<resStr.length;i++) sum+=int.parse(resStr[i]);
-  if (DEBUG_MODE) print('${N}!: $res');
-  return sum;
+int solve(int N) {
+  if (useInternalBigInteger) {
+    // ------------ Method 1: Uses dart internal BigInt (Doesn't work in Javascript) -----------
+    if (showDebug) print("Using internal BigInt (not dart2js compatible)");
+    // Factorial
+    int result = 1;
+    for (int i = 2; i <= N; i++) result *= i;
+    String resStr = result.toString();
+    // Sum of the digits of the factorial
+    int sum = 0;
+    for (int i = 0; i < resStr.length; i++) sum += int.parse(resStr[i]);
+    if (showDebug) print('${N}!: $result');
+    return sum;
+  } else {
+    // ------------ Method 2: Uses simplified BigInt (works in VM and in Javascript) -----------
+    if (showDebug) print("Not using internal BigInt (dart2js compatible)");
+    // Factorial
+    BigInt result = new BigInt(1);
+    for (int i = 2; i <= N; i++) result *= i;
+    String resultStr = result.toString();
+    // Sum of the digits of the factorial
+    int sum = 0;
+    for (int i = 0; i < resultStr.length; i++) sum += int.parse(resultStr[i]);
+    if (showDebug) print('${N}!: $result');
+    return sum;
+  }
 }
 
 void main() {
-  if (INTERNAL_BIGINT) {
-    print("Using internal BigInt (not dart2js compatible)");
-    assert(SolveBigInt(10) == 27);
-  }
-  else {
-    print("Not using internal BigInt (dart2js compatible)");
-    assert(Solve(10) == 27);
-  }
+  assert(solve(10) == 27);
+
   DateTime creationTime = new DateTime.now();
-  int res;
-  if (INTERNAL_BIGINT)
-    res = SolveBigInt(N);
-  else
-    res = Solve(N);
-  print('sum of the digits in the number $N!: $res');
+  int result = solve(N);
+  print('sum of the digits in the number $N!: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

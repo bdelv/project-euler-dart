@@ -17,22 +17,22 @@ What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed 
 
 import 'dart:core';
 
-const int SPIRAL_SIZE = 1001;
-const bool DEBUG_MODE = false;
+const int spiralSize = 1001;
+const bool showDebug = false;
 
-int Solve(int SpiralSize) {
+int solve(int SpiralSize) {
   if (SpiralSize % 2 ==
       0) throw new ArgumentError("Spiral size: $SpiralSize (should be odd)");
   // Creates the grid
-  List<List<int>> Spiral = new List<List<int>>(SpiralSize);
-  for (int i = 0; i < SpiralSize; i++) Spiral[i] = new List<int>(SpiralSize);
+  List<List<int>> spiralGrid = new List<List<int>>(SpiralSize);
+  for (int i = 0; i < SpiralSize; i++) spiralGrid[i] = new List<int>(SpiralSize);
   // Fill the grid
   int _halfSize = (SpiralSize - 1) ~/ 2;
   int x = _halfSize;
   int y = x;
   int _count = 1;
   // Fills the center with the first value (1)
-  Spiral[y][x] = _count++;
+  spiralGrid[y][x] = _count++;
   // Draw the squares around the center
   for (int _size = 2; _size < SpiralSize; _size += 2) {
     int incX;
@@ -65,29 +65,29 @@ int Solve(int SpiralSize) {
       for (int j = 0; j < _size; j++) {
         x += incX;
         y += incY;
-        Spiral[y][x] = _count++;
+        spiralGrid[y][x] = _count++;
       }
     }
   }
-  if (DEBUG_MODE) for (int i = 0; i < SpiralSize; i++) print(Spiral[i].join(' '));
+  if (showDebug) for (int i = 0; i < SpiralSize; i++) print(spiralGrid[i].join(' '));
   // Calculates the sum of the numbers on the diagonals
   int _res = 1; // Center value: 1
   for (int i = 1;
       i <= _halfSize;
-      i++) _res += Spiral[_halfSize + i][_halfSize + i] +
-          Spiral[_halfSize + i][_halfSize - i] +
-          Spiral[_halfSize - i][_halfSize - i] +
-          Spiral[_halfSize - i][_halfSize + i];
+      i++) _res += spiralGrid[_halfSize + i][_halfSize + i] +
+          spiralGrid[_halfSize + i][_halfSize - i] +
+          spiralGrid[_halfSize - i][_halfSize - i] +
+          spiralGrid[_halfSize - i][_halfSize + i];
   return _res;
 }
 
 void main() {
-  assert(Solve(5) == 101);
+  assert(solve(5) == 101);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(SPIRAL_SIZE);
+  int result = solve(spiralSize);
   print(
-      "sum of the numbers on the diagonals in a $SPIRAL_SIZE by $SPIRAL_SIZE spiral: $res");
+      "sum of the numbers on the diagonals in a $spiralSize by $spiralSize spiral: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

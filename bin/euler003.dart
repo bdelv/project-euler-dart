@@ -9,29 +9,29 @@ What is the largest prime factor of the number 600851475143 ?
 import 'dart:core';
 
 const int NB = 600851475143;
-const bool DEBUG_MODE = false;
+const bool showDebug = false;
 
-int Solve(int Nb) {
-  int MaxPrime = 1;
-  int CurrentNb = Nb;
+int solve(int NB) {
+  int maxPrime = 1;
+  int currentNb = NB;
   int i = 2;
-  while (CurrentNb > 1) {
-    while (CurrentNb % i == 0) {
-      if (DEBUG_MODE) print('Prime factor found: $i');
-      CurrentNb = CurrentNb ~/ i;
-      MaxPrime = i;
+  while (currentNb > 1) {
+    while (currentNb % i == 0) {
+      if (showDebug) print('Prime factor found: $i');
+      currentNb = currentNb ~/ i;
+      maxPrime = i;
     }
     i++;
   }
-  return MaxPrime;
+  return maxPrime;
 }
 
 void main() {
-  assert(Solve(13195) == 29);
+  assert(solve(13195) == 29);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(NB);
-  print('Largest prime factor of $NB = $res');
+  int result = solve(NB);
+  print('Largest prime factor of $NB = $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

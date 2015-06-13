@@ -9,22 +9,22 @@
 
 import 'dart:core';
 
-const int MAX_COUNT = 1000;
+const int maxNumber = 1000;
 
-int Solve(int MaxCount) {
+int solve(int maxNumber) {
   int Sum = 0;
   for (int i = 1;
-      i < MaxCount;
+      i < maxNumber;
       i++) if ((i % 3 == 0) || (i % 5 == 0)) Sum += i;
   return Sum;
 }
 
 void main() {
-  assert(Solve(10) == 23);
+  assert(solve(10) == 23);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(1000);
-  print('Sum of multiples of 3 or 5 below $MAX_COUNT = $res');
+  int result = solve(maxNumber);
+  print('Sum of multiples of 3 or 5 below $maxNumber = $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

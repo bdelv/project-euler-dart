@@ -15,8 +15,8 @@ The use of "and" when writing out numbers is in compliance with British usage.
 
 import 'dart:core';
 
-const int MAX_NB = 1000;
-const bool DEBUG_MODE = true;
+const int maxNb = 1000;
+const bool showDebug = true;
 
 Map<int, String> MapNumbers = {
   1: 'one',
@@ -50,43 +50,43 @@ Map<int, String> MapNumbers = {
   1000: 'one thousand'
 };
 
-String Number2Text(int num) {
-  String res = '';
-  if (MapNumbers.containsKey(num)) res = MapNumbers[num];
+String number2Text(int num) {
+  String result = '';
+  if (MapNumbers.containsKey(num)) result = MapNumbers[num];
   else if (num < 100) {
-    res = Number2Text(num - (num % 10));
-    if (num % 10 > 0) res += '-' + Number2Text(num % 10);
+    result = number2Text(num - (num % 10));
+    if (num % 10 > 0) result += '-' + number2Text(num % 10);
   } else if (num < 1000) {
-    res += Number2Text(num ~/ 100) + ' hundred';
-    if (num % 100 > 0) res += ' and ' + Number2Text(num % 100);
+    result += number2Text(num ~/ 100) + ' hundred';
+    if (num % 100 > 0) result += ' and ' + number2Text(num % 100);
   }
-  return res;
+  return result;
 }
 
-int LettersCount(String str) {
+int lettersCount(String str) {
   int sum = 0;
   for (int i = 0; i < str.length; i++)
     if ((str[i] != ' ') && (str[i] != '-')) sum++;
-  if (DEBUG_MODE) print("$str / $sum letters");
+  if (showDebug) print("$str / $sum letters");
   return sum;
 }
 
-int Solve(int MaxNb) {
+int solve(int maxNb) {
   int sum = 0;
-  for (int i = 1; i <= MaxNb; i++) sum += LettersCount(Number2Text(i));
+  for (int i = 1; i <= maxNb; i++) sum += lettersCount(number2Text(i));
   return sum;
 }
 
 void main() {
-  assert(Number2Text(342) == "three hundred and forty-two");
-  assert(Number2Text(115) == "one hundred and fifteen");
-  assert(LettersCount(Number2Text(342)) == 23);
-  assert(LettersCount(Number2Text(115)) == 20);
-  assert(Solve(5) == 19);
+  assert(number2Text(342) == "three hundred and forty-two");
+  assert(number2Text(115) == "one hundred and fifteen");
+  assert(lettersCount(number2Text(342)) == 23);
+  assert(lettersCount(number2Text(115)) == 20);
+  assert(solve(5) == 19);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX_NB);
-  print('Total number of letters in 1 to $MAX_NB (inclusive) written out in words: $res');
+  int result = solve(maxNb);
+  print('Total number of letters in 1 to $maxNb (inclusive) written out in words: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

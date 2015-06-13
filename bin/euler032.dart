@@ -15,13 +15,13 @@ HINT: Some products can be obtained in more than one way so be sure to only incl
 
 import 'dart:core';
 
-const int NDIGIT = 9;
-const bool DEBUG_MODE = true;
+const int digitsCount = 9;
+const bool showDebug = true;
 
-int Solve(int nDigits) {
+int solve(int digitsCount) {
   // list of available digits to make the pandigital numbers
   String availableDigits = new List<String>.generate(
-      nDigits, (int idx) => (idx + 1).toString()).join("");
+      digitsCount, (int idx) => (idx + 1).toString()).join("");
 
   // list to store the unique results
   List<int> results = new List<int>();
@@ -44,7 +44,7 @@ int Solve(int nDigits) {
           if (a < b && a * b == p) {
             // we found a pandigital product
             if (!results.contains(p)) {
-              if (DEBUG_MODE) print("$a x $b = $p");
+              if (showDebug) print("$a x $b = $p");
               results.add(p);
               _res += p;
             }
@@ -67,9 +67,9 @@ int Solve(int nDigits) {
 
 void main() {
   DateTime creationTime = new DateTime.now();
-  int res = Solve(NDIGIT);
+  int result = solve(digitsCount);
   print(
-      "Sum of all unique products whose multiplicand/multiplier/product identity can be written as a 1 through $NDIGIT pandigital: $res");
+      "Sum of all unique products whose multiplicand/multiplier/product identity can be written as a 1 through $digitsCount pandigital: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

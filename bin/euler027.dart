@@ -26,10 +26,10 @@ the maximum number of primes for consecutive values of n, starting with n = 0.
 import 'dart:core';
 import 'dart:math' as math;
 
-const int MAX_VALUE = 1000;
-const bool DEBUG_MODE = true;
+const int maxValue = 1000;
+const bool showDebug = true;
 
-bool IsPrime(int number) {
+bool isPrime(int number) {
   // manually test 2 and 3
   if (number > 3) if (number % 2 == 0 || number % 3 == 0) return false;
   // we can now avoid to consider multiples
@@ -52,23 +52,23 @@ bool IsPrime(int number) {
 }
 // Calculates the number of consecutive prime numbers for the quadratic
 // n*n + n*a + b for n >= 0
-int QuadraticPrimesCount(int a, int b) {
+int quadraticPrimesCount(int a, int b) {
   int _count = 0;
-  while (IsPrime((_count * _count + a * _count + b).abs())) _count++;
+  while (isPrime((_count * _count + a * _count + b).abs())) _count++;
   return _count;
 }
 // Brute force "find the biggest number of primes"
 // for |a|<MAX_VALUE amd |b|<MAX_VALUE
-int Solve(int MaxValue) {
+int solve(int maxValue) {
   int _maxCount = 0;
   int _tmpCount;
   int _res;
-  for (int a = -MaxValue + 1; a < MaxValue; a++) for (int b = -MaxValue + 1;
-      b < MaxValue;
+  for (int a = -maxValue + 1; a < maxValue; a++) for (int b = -maxValue + 1;
+      b < maxValue;
       b++) {
-    _tmpCount = QuadraticPrimesCount(a, b);
+    _tmpCount = quadraticPrimesCount(a, b);
     if (_tmpCount > _maxCount) {
-      if (DEBUG_MODE) print("QuadraticPrimesCount($a, $b) = $_tmpCount");
+      if (showDebug) print("QuadraticPrimesCount($a, $b) = $_tmpCount");
       _maxCount = _tmpCount;
       _res = a * b;
     }
@@ -77,18 +77,18 @@ int Solve(int MaxValue) {
 }
 
 void main() {
-  assert(IsPrime(7));
-  assert(IsPrime(11));
-  assert(IsPrime(19));
-  assert(!IsPrime(49));
-  assert(!IsPrime(50));
-  assert(QuadraticPrimesCount(1, 41) == 40);
-  assert(QuadraticPrimesCount(-79, 1601) == 80);
+  assert(isPrime(7));
+  assert(isPrime(11));
+  assert(isPrime(19));
+  assert(!isPrime(49));
+  assert(!isPrime(50));
+  assert(quadraticPrimesCount(1, 41) == 40);
+  assert(quadraticPrimesCount(-79, 1601) == 80);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX_VALUE);
+  int result = solve(maxValue);
   print("Product of the coefficients, a and b, for the quadratic expression that produces" +
-      " the maximum number of primes for consecutive values of n (for |a|<$MAX_VALUE and |b|<$MAX_VALUE: $res");
+      " the maximum number of primes for consecutive values of n (for |a|<$maxValue and |b|<$maxValue: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

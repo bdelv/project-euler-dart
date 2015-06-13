@@ -2,13 +2,11 @@
 
 Some Project Euler problems Dartpad-ified (1 file / 1 problem solved / no funky libraries)
 
-Just a few different personnal tests that bumped together.
-
 [Project Euler](https://projecteuler.net/) is a series of mathematical/computer programming problems that are fun to solve.
 
-[Dart](https://www.dartlang.org/) is a programming language that is very fun to play with.
+[Dart](https://www.dartlang.org/) is very interesting programming language.
 
-[Dartpad](https://dartpad.dartlang.org/) The UI client for a web based interactive Dart service.
+[Dartpad](https://dartpad.dartlang.org/) UI client that allows to test Dart code in the browser.
 
 **Dartpad** fits very well with **Project Euler** type of sites (like [Codingame](https://www.codingame.com/) for example)
 
@@ -19,7 +17,7 @@ Copy the content of a Dart file (from the **bin** folder) into [dartpad](https:/
 Note: In some cases (problems 16, 20, 25), make sure that the use of internal big integer is disabled so to work in Dartpad.
 
 ```
-const bool INTERNAL_BIGINT = false;
+const bool useInternalBigInteger = false;
 ```
 ## To test in the Dart VM
 
@@ -46,5 +44,3 @@ or
 ```
 pub run bin/euler25
 ```
-
-It's free to use; if you find any use for it.

@@ -11,36 +11,32 @@ find the sum of the even-valued terms.
 
 import 'dart:core';
 
-const int MAX_FIBONB = 4000000;
-const bool DEBUG_MODE = false;
+const int maxFibonacciNumber = 4000000;
+const bool showDebug = false;
 
-int Solve(int MaxFibo) {
+int solve(int maxFibonacciNumber) {
+  int fibonacci = 2;
+  int prev1 = 1;
+  int prev2 = 0;
+  int sum = 2;
 
-  int Prev1 = 0;
-  int Prev2 = 0;
-  int Fibo= 0;
-  int Sum = 0;
-
-  int i=1;
   while (true) {
-    Prev2 = Prev1;
-    Prev1 = Fibo;
-    if (i == 1) Fibo = 1; else if (i == 2) Fibo = 2; else (Fibo = Prev1 + Prev2);
-    if (DEBUG_MODE) print(Fibo);
-    if (Fibo > MaxFibo) break;
-    if (Fibo % 2 == 0) Sum += Fibo;
-    i++;
+    prev2 = prev1;
+    prev1 = fibonacci;
+    fibonacci = prev1 + prev2;
+    if (showDebug) print(fibonacci);
+    if (fibonacci > maxFibonacciNumber) break;
+    if (fibonacci.isEven) sum += fibonacci;
   }
-  return Sum;
+  return sum;
 }
 
 void main() {
-  assert(Solve(100) == 44);
+  assert(solve(100) == 44);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(MAX_FIBONB);
-  print('Sum of the even Fibonacci numbers <=$MAX_FIBONB = $res');
+  int result = solve(maxFibonacciNumber);
+  print('Sum of the even Fibonacci numbers <=$maxFibonacciNumber = $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
-
 }

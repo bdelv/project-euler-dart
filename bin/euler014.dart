@@ -20,10 +20,10 @@ NOTE: Once the chain starts the terms are allowed to go above one million
 
 import 'dart:core';
 
-const int STARTING_UNDER = 1000000;
-const bool DEBUG_MODE = true;
+const int startingUnder = 1000000;
+const bool showDebug = true;
 
-int CalcChainLength(int start) {
+int calcChainLength(int start) {
   int nb = 1;
   while (true) {
     nb++;
@@ -33,26 +33,26 @@ int CalcChainLength(int start) {
   }
 }
 
-int Solve(int StartingUnder) {
-  int MaxChainL = 0;
-  int MaxStarting = 0;
+int solve(int StartingUnder) {
+  int maxChainLength = 0;
+  int startingNbMaxSum = 0;
   for (int i = 1; i < StartingUnder; i++) {
-    int TempChainL = CalcChainLength(i);
-    if (TempChainL > MaxChainL) {
-      MaxChainL = TempChainL;
-      MaxStarting = i;
+    int tempChainLength = calcChainLength(i);
+    if (tempChainLength > maxChainLength) {
+      maxChainLength = tempChainLength;
+      startingNbMaxSum = i;
     }
   }
-  if (DEBUG_MODE) print('Max Chain length($StartingUnder): $MaxChainL');
-  return MaxStarting;
+  if (showDebug) print('Max Chain length($StartingUnder): $maxChainLength');
+  return startingNbMaxSum;
 }
 
 void main() {
-  assert(CalcChainLength(13) == 10);
+  assert(calcChainLength(13) == 10);
 
   DateTime creationTime = new DateTime.now();
-  int res = Solve(STARTING_UNDER);
-  print('Starting number (under $STARTING_UNDER) that produces the longest chain: $res');
+  int result = solve(startingUnder);
+  print('Starting number (under $startingUnder) that produces the longest chain: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

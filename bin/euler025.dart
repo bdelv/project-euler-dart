@@ -24,38 +24,39 @@ The 12th term, F12, is the first term to contain three digits.
 What is the first term in the Fibonacci sequence to contain 1000 digits?
 */
 
-// SolveInt() Works in VM but not after dart2js
-// Solve() works in both
+// solveInt() Works in VM but not after dart2js
+// solve() works in both
 
 import 'dart:core';
+import 'dart:math' as math;
 
-const int NB_DIGITS = 1000;
-const bool DEBUG_MODE = true;
+const int digitsCount = 1000;
+const bool showDebug = true;
 // true = uses Dart internal BigInt (not compatible with dart2js)
-const bool INTERNAL_BIGINT = false;
+const bool useInternalBigInteger = false;
 
 /* very basic BigInt class 
 * Supports only the +operator for the need of this problem */
 class BigInt {
-  List<int> Digits;
+  List<int> digitsList;
   int get length => _getlength();
   // Returns the object at the given [index] in the list
   int operator [](int index) {
     if (index < 0) throw new RangeError(
         "get[]: index $index out of range [0...${this.length}]");
     if (index >= length) return 0;
-    return Digits[index];
+    return digitsList[index];
   }
   // Setter [] on the digits
   void operator []=(int index, int value) {
     if (index <
         0) throw new RangeError("set[]: index $index out of range (<0)");
-    for (int i = Digits.length; i <= index; i++) this.addDigit(0);
-    Digits[index] = value;
+    for (int i = digitsList.length; i <= index; i++) this.addDigit(0);
+    digitsList[index] = value;
   }
   // constructor
   BigInt([int a]) {
-    Digits = new List<int>();
+    digitsList = new List<int>();
     if (a != null) this.fromInt(a);
   }
   // new bigint initialized to nothing
@@ -70,28 +71,28 @@ class BigInt {
   }
   // Add a digit on the left side of the number
   void addDigit(int d) {
-    Digits.add(d);
+    digitsList.add(d);
   }
   // removes excessive 0s
   void clamp() {
-    if (Digits == null) return;
-    if (Digits.length == 0) return;
-    for (int i = Digits.length - 1;
+    if (digitsList == null) return;
+    if (digitsList.length == 0) return;
+    for (int i = digitsList.length - 1;
         i >= 0;
-        i--) if (Digits[i] == 0) Digits.removeAt(i);
+        i--) if (digitsList[i] == 0) digitsList.removeAt(i);
     else break;
   }
   // returns the length of the big number
   int _getlength() {
-    if (Digits == null) return 0;
+    if (digitsList == null) return 0;
     this.clamp();
-    return Digits.length;
+    return digitsList.length;
   }
   // Imports the value of the big number from a regular Integer
   void fromInt(int a) {
-    Digits.clear();
+    digitsList.clear();
     while (a > 0) {
-      Digits.add(a % 10);
+      digitsList.add(a % 10);
       a ~/= 10;
     }
   }
@@ -116,70 +117,72 @@ class BigInt {
   // converts the big number to a string
   String toString() {
     String _res = "";
-    int _len = Digits.length;
+    int _len = digitsList.length;
     for (int _idx = 0;
         _idx < _len;
-        _idx++) _res = Digits[_idx].toString() + _res;
+        _idx++) _res = digitsList[_idx].toString() + _res;
     return _res;
   }
   BigInt operator +(BigInt other) => add(other);
 }
 
 // ------------- Method 2: Using a simplified BigInt class ------------
-int Solve(int NbDigits) {
-  BigInt Fibo = new BigInt(1);
-  BigInt Prev1 = new BigInt(1);
-  BigInt Prev2 = new BigInt(0);
+int solveWithoutBigInt(int digitsCount) {
+  BigInt fibonacci = new BigInt(1);
+  BigInt prev1 = new BigInt(1);
+  BigInt prev2 = new BigInt(0);
 
   int i = 2;
   while (true) {
     i++;
-    Prev2 = Prev1;
-    Prev1 = Fibo;
-    Fibo = Prev1 + Prev2;
-    if (Fibo.length >= NbDigits) break;
+    prev2 = prev1;
+    prev1 = fibonacci;
+    fibonacci = prev1 + prev2;
+    if (fibonacci.length >= digitsCount) break;
   }
-  if (DEBUG_MODE) print('First Fibo number with $NbDigits digits: $Fibo');
+  if (showDebug) print(
+      'First Fibo number with $digitsCount digits: $fibonacci');
   return i;
 }
 
 // --------------- Method 1: Using Dart internal BigInt (doesn't work in Javascript) ----------
-int SolveBigInt(int NbDigits) {
-  int Fibo = 1;
+int solveBigInt(int digitsCount) {
+  int fibonacci = 1;
   int Prev1 = 1;
   int Prev2 = 0;
 
-  int i = 2;
-  while (true) {
-    i++;
+  int maxNumber = math.pow(10, digitsCount - 1);
+  int countFibo = 2;
+  while (fibonacci < maxNumber) {
+    countFibo++;
     Prev2 = Prev1;
-    Prev1 = Fibo;
-    Fibo = Prev1 + Prev2;
-    if (Fibo.toString().length >= NbDigits) break;
+    Prev1 = fibonacci;
+    fibonacci = Prev1 + Prev2;
   }
-  if (DEBUG_MODE) print('First Fibo number with $NbDigits digits: $Fibo');
-  return i;
+  if (showDebug) print(
+      'First Fibonacci number with $digitsCount digits: $fibonacci');
+  return countFibo;
+}
+
+int solve(int digitsCount) {
+  if (useInternalBigInteger) {
+    if (showDebug) print("Using Internal BigInt (not compatible with dart2js)");
+    return solveBigInt(digitsCount);
+  } else {
+    if (showDebug) print("Not using Internal BigInt (compatible with dart2js)");
+    return solveWithoutBigInt(digitsCount);
+  }
 }
 
 void main() {
-  if (INTERNAL_BIGINT) {
-    print("Using Internal BigInt (not compatible with dart2js)");
-    assert(SolveBigInt(3) == 12);
-    assert(SolveBigInt(4) == 17);
-    assert(SolveBigInt(5) == 21);
-  } else {
-    print("Not using Internal BigInt (compatible with dart2js)");
-    assert(Solve(3) == 12);
-    assert(Solve(4) == 17);
-    assert(Solve(5) == 21);
-  }
+  assert(solve(3) == 12);
+  assert(solve(4) == 17);
+  assert(solve(5) == 21);
 
   DateTime creationTime = new DateTime.now();
-  int res;
-  if (INTERNAL_BIGINT) res = SolveBigInt(NB_DIGITS);
-  else res = Solve(NB_DIGITS);
+  int result = solve(digitsCount);
   print(
-      'First term in the Fibonacci sequence to contain $NB_DIGITS digits: $res');
+      'First term in the Fibonacci sequence to contain $digitsCount digits: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }
