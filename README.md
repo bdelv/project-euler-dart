@@ -8,8 +8,6 @@ Some Project Euler problems Dartpad-ified (1 file / 1 problem solved / no funky 
 
 [Dartpad](https://dartpad.dartlang.org/) UI client that allows to test Dart code in the browser.
 
-**Dartpad** fits very well with **Project Euler** type of sites (like [Codingame](https://www.codingame.com/) for example)
-
 ## To test in Dartpad
 
 Copy the content of a Dart file (from the **bin** folder) into [dartpad](https://dartpad.dartlang.org/) and run.
@@ -27,16 +25,15 @@ Install the [Dart SDK](https://www.dartlang.org/downloads/)
 
 Use one of the following:
 * [Webstorm](http://www.jetbrains.com/webstorm/) (recommended editor. Great support for Dart).
-* [Sublime Text](http://www.sublimetext.com/) and the [Dart plugin](https://github.com/guillermooo/dart-sublime-bundle)
-* [Eclipse](http://www.eclipse.org/) and the [Dart plugin](https://www.dartlang.org/tools/eclipse-plugin/)
+* [Atom](https://atom.io/) (Great free editor with a Dart plugin)
 
-Just **run in Dartium** any eulerxxx.dart file from the **bin** folder.
+Just **run** any eulerxxx.dart file from the **bin** folder.
 
 ### from the command line
 
-* Make sure **pub** is accessible from the command line. If not, add the PATH in **.profile** (Linux) or your environment variables (Windows)
+* Make sure **pub** is accessible from the command line. If not, add the PATH in **~/.profile** (Linux) or your environment variables (Windows)
 * Go in the **dartpad-euler** folder
-* run a file by typing something like: 
+* run a file by typing something like:
 ```
 pub run euler012.dart
 ```
