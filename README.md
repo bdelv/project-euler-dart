@@ -2,11 +2,11 @@
 
 Some Project Euler problems Dartpad-ified (1 file / 1 problem solved / no funky libraries)
 
-[Project Euler](https://projecteuler.net/) is a series of mathematical/computer programming problems that are fun to solve.
+[Project Euler](https://projecteuler.net/)
 
-[Dart](https://www.dartlang.org/) is very interesting programming language.
+[Dart](https://www.dartlang.org/)
 
-[Dartpad](https://dartpad.dartlang.org/) UI client that allows to test Dart code in the browser.
+[Dartpad](https://dartpad.dartlang.org/)
 
 ## To test in Dartpad
 
@@ -33,7 +33,7 @@ Just **run** any eulerxxx.dart file from the **bin** folder.
 
 * Make sure **pub** is accessible from the command line. If not, add the PATH in **~/.profile** (Linux) or your environment variables (Windows)
 * Go in the **dartpad-euler** folder
-* run a file by typing something like:
+* run a problem by typing something like:
 ```
 pub run euler012.dart
 ```
