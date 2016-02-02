@@ -81,7 +81,7 @@ int solve(int adjacentNumbersCount) {
     Grid.add(new List<int>());
     tmpStr.forEach((f) => Grid[y].add(int.parse(f)));
   }
-  print(Grid[1][2]);
+
   for (int y = 0; y < gridSize; y++) {
     for (int x = 0; x < gridSize; x++) {
       //horizontal
