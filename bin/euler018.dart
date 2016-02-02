@@ -2,7 +2,7 @@
 Maximum path sum I
 https://projecteuler.net/problem=18
 
-By starting at the top of the triangle below and moving to adjacent numbers on the row below, 
+By starting at the top of the triangle below and moving to adjacent numbers on the row below,
 the maximum total from top to bottom is 23.
 3
 7 4
@@ -37,12 +37,7 @@ import 'dart:math';
 
 const showDebug = true;
 
-List<String> listStrTest = [
-"3",
-"7 4",
-"2 4 6",
-"8 5 9 3"
-];
+List<String> listStrTest = ["3", "7 4", "2 4 6", "8 5 9 3"];
 
 List<String> listStr = [
   "75",
@@ -90,8 +85,8 @@ int solve(List<String> listStr) {
     listCache.add(tmpCache);
   }
   // Search for the max total up to bottom
-  if (showDebug) listStr.forEach((Str)=>print(Str));
-  return maxTotal(0,0);
+  if (showDebug) listStr.forEach((Str) => print(Str));
+  return maxTotal(0, 0);
 }
 
 void main() {

@@ -20,8 +20,9 @@ const bool showDebug = true;
 
 int solve(int digitsCount) {
   // list of available digits to make the pandigital numbers
-  String availableDigits = new List<String>.generate(
-      digitsCount, (int idx) => (idx + 1).toString()).join("");
+  String availableDigits =
+      new List<String>.generate(digitsCount, (int idx) => (idx + 1).toString())
+          .join("");
 
   // list to store the unique results
   List<int> results = new List<int>();
@@ -30,20 +31,19 @@ int solve(int digitsCount) {
     int _res = 0;
     if (remaining == "") {
       // we have 1 permutation. Let's test if we can find a pandigital multiplicand/multiplier/product
-      for (int count1 = 1;
-          count1 < permut.length - 2;
-          count1++) for (int count2 = count1;
-          permut.length - ((count1 + count2) * 2 - 1) >= 0;
-          count2++) {
+      for (int count1 = 1; count1 < permut.length - 2; count1++)
+        for (int count2 = count1;
+            permut.length - ((count1 + count2) * 2 - 1) >= 0;
+            count2++) {
         int countp = permut.length - (count1 + count2);
         if (countp == count1 + count2 || countp == count1 + count2 - 1) {
-          //int countProduct=permut.length-(count1+count2);
-          int a = int.parse(permut.substring(0, count1));
+            //int countProduct=permut.length-(count1+count2);
+            int a = int.parse(permut.substring(0, count1));
           int b = int.parse(permut.substring(count1, count1 + count2));
           int p = int.parse(permut.substring(count1 + count2, permut.length));
           if (a < b && a * b == p) {
-            // we found a pandigital product
-            if (!results.contains(p)) {
+              // we found a pandigital product
+              if (!results.contains(p)) {
               if (showDebug) print("$a x $b = $p");
               results.add(p);
               _res += p;

@@ -41,14 +41,16 @@ int solve(int nbDividers) {
         divCount++;
         remaining ~/= currentDivisor;
       }
-      if (listNbDividers[currentDivisor - 1] < divCount) listNbDividers[
-          currentDivisor - 1] = divCount;
-      if (currentDivisor.isEven) currentDivisor++;
-      else currentDivisor += 2;
+      if (listNbDividers[currentDivisor - 1] < divCount)
+        listNbDividers[currentDivisor - 1] = divCount;
+      if (currentDivisor.isEven)
+        currentDivisor++;
+      else
+        currentDivisor += 2;
     }
   }
-  if (showDebug) print(
-      'Prime divisors found in 1..$nbDividers: $listNbDividers');
+  if (showDebug)
+    print('Prime divisors found in 1..$nbDividers: $listNbDividers');
   // Calculate the smallest number
   int result = 1;
   for (int CurrDiv = 1; CurrDiv < listNbDividers.length; CurrDiv++) {

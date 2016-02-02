@@ -6,7 +6,7 @@ Work out the first ten digits of the sum of the following one-hundred 50-digit n
  */
 import 'dart:core';
 
-const sumFirstDigitsCount=10;
+const sumFirstDigitsCount = 10;
 const bool showDebug = true;
 
 List listNumbers = [
@@ -124,7 +124,7 @@ int solve() {
   }
   if (unitSum > 0) sum = unitSum.toString() + sum;
   if (showDebug) print("Complete sum: $sum");
-  return int.parse(sum.toString().substring(0,sumFirstDigitsCount));
+  return int.parse(sum.toString().substring(0, sumFirstDigitsCount));
 }
 
 void main() {

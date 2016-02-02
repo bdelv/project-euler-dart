@@ -52,7 +52,8 @@ Map<int, String> MapNumbers = {
 
 String number2Text(int num) {
   String result = '';
-  if (MapNumbers.containsKey(num)) result = MapNumbers[num];
+  if (MapNumbers.containsKey(num))
+    result = MapNumbers[num];
   else if (num < 100) {
     result = number2Text(num - (num % 10));
     if (num % 10 > 0) result += '-' + number2Text(num % 10);
@@ -86,7 +87,8 @@ void main() {
 
   DateTime creationTime = new DateTime.now();
   int result = solve(maxNb);
-  print('Total number of letters in 1 to $maxNb (inclusive) written out in words: $result');
+  print(
+      'Total number of letters in 1 to $maxNb (inclusive) written out in words: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

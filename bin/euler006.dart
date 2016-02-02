@@ -27,9 +27,10 @@ int solve(int numberCount) {
     squareOfSum += i;
     sumOfSquare += i * i;
   }
-  squareOfSum *=squareOfSum;
+  squareOfSum *= squareOfSum;
   if (showDebug) {
-    print("SquareOfSum($numberCount)=$squareOfSum, SumOfSquare($numberCount)=$sumOfSquare");
+    print(
+        "SquareOfSum($numberCount)=$squareOfSum, SumOfSquare($numberCount)=$sumOfSquare");
   }
   return squareOfSum - sumOfSquare;
 }
@@ -39,7 +40,8 @@ void main() {
 
   DateTime creationTime = new DateTime.now();
   int result = solve(numberCount);
-  print('Square_of_the_sum($numberCount) - sum_of_the_squares($numberCount) = $result');
+  print(
+      'Square_of_the_sum($numberCount) - sum_of_the_squares($numberCount) = $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

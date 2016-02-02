@@ -35,25 +35,28 @@ const bool showDebug = true;
 // true = uses Dart internal BigInt (not compatible with dart2js)
 const bool useInternalBigInteger = false;
 
-/* very basic BigInt class 
+/* very basic BigInt class
 * Supports only the +operator for the need of this problem */
 class BigInt {
   List<int> digitsList;
   int get length => _getlength();
   // Returns the object at the given [index] in the list
   int operator [](int index) {
-    if (index < 0) throw new RangeError(
-        "get[]: index $index out of range [0...${this.length}]");
+    if (index < 0)
+      throw new RangeError(
+          "get[]: index $index out of range [0...${this.length}]");
     if (index >= length) return 0;
     return digitsList[index];
   }
+
   // Setter [] on the digits
   void operator []=(int index, int value) {
-    if (index <
-        0) throw new RangeError("set[]: index $index out of range (<0)");
+    if (index < 0)
+      throw new RangeError("set[]: index $index out of range (<0)");
     for (int i = digitsList.length; i <= index; i++) this.addDigit(0);
     digitsList[index] = value;
   }
+
   // constructor
   BigInt([int a]) {
     digitsList = new List<int>();
@@ -63,31 +66,37 @@ class BigInt {
   static BigInt nbi() {
     return new BigInt(null);
   }
+
   // new bigint initialized to i
   static BigInt nbv(int i) {
     var r = nbi();
     r.fromInt(i);
     return r;
   }
+
   // Add a digit on the left side of the number
   void addDigit(int d) {
     digitsList.add(d);
   }
+
   // removes excessive 0s
   void clamp() {
     if (digitsList == null) return;
     if (digitsList.length == 0) return;
-    for (int i = digitsList.length - 1;
-        i >= 0;
-        i--) if (digitsList[i] == 0) digitsList.removeAt(i);
-    else break;
+    for (int i = digitsList.length - 1; i >= 0; i--)
+      if (digitsList[i] == 0)
+        digitsList.removeAt(i);
+    else
+      break;
   }
+
   // returns the length of the big number
   int _getlength() {
     if (digitsList == null) return 0;
     this.clamp();
     return digitsList.length;
   }
+
   // Imports the value of the big number from a regular Integer
   void fromInt(int a) {
     digitsList.clear();
@@ -96,6 +105,7 @@ class BigInt {
       a ~/= 10;
     }
   }
+
   // Adds a big number and stores the result in r
   void addTo(BigInt a, BigInt r) {
     int _remain = 0;
@@ -108,21 +118,23 @@ class BigInt {
       _idx++;
     }
   }
+
   // adds a big number to this and retrns the result
   BigInt add(BigInt a) {
     BigInt r = nbi();
     this.addTo(a, r);
     return r;
   }
+
   // converts the big number to a string
   String toString() {
     String _res = "";
     int _len = digitsList.length;
-    for (int _idx = 0;
-        _idx < _len;
-        _idx++) _res = digitsList[_idx].toString() + _res;
+    for (int _idx = 0; _idx < _len; _idx++)
+      _res = digitsList[_idx].toString() + _res;
     return _res;
   }
+
   BigInt operator +(BigInt other) => add(other);
 }
 
@@ -140,8 +152,8 @@ int solveWithoutBigInt(int digitsCount) {
     fibonacci = prev1 + prev2;
     if (fibonacci.length >= digitsCount) break;
   }
-  if (showDebug) print(
-      'First Fibo number with $digitsCount digits: $fibonacci');
+  if (showDebug)
+    print('First Fibo number with $digitsCount digits: $fibonacci');
   return i;
 }
 
@@ -159,8 +171,8 @@ int solveBigInt(int digitsCount) {
     Prev1 = fibonacci;
     fibonacci = Prev1 + Prev2;
   }
-  if (showDebug) print(
-      'First Fibonacci number with $digitsCount digits: $fibonacci');
+  if (showDebug)
+    print('First Fibonacci number with $digitsCount digits: $fibonacci');
   return countFibo;
 }
 

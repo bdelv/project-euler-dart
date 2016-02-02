@@ -26,8 +26,10 @@ int solve(int sumPythagoreanTriplet) {
       int c = sumPythagoreanTriplet - a - b;
       if (c <= b) break;
       if (isPythagoreanTriplet(a, b, c)) {
-        if (showDebug) print('for a^2+b^2=c^2 and a+b+c=$sumPythagoreanTriplet: a=$a, b=$b, c=$c, abc=${a*b*c}');
-        return a*b*c;
+        if (showDebug)
+          print(
+              'for a^2+b^2=c^2 and a+b+c=$sumPythagoreanTriplet: a=$a, b=$b, c=$c, abc=${a*b*c}');
+        return a * b * c;
       }
     }
   }
@@ -39,7 +41,8 @@ void main() {
 
   DateTime creationTime = new DateTime.now();
   int result = solve(sumPythagoreanTriplet);
-  print('Product abc of the Pythagorean triplet for which a + b + c = $sumPythagoreanTriplet: $result');
+  print(
+      'Product abc of the Pythagorean triplet for which a + b + c = $sumPythagoreanTriplet: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

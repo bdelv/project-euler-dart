@@ -28,11 +28,15 @@ bool isLeapYear(int year) {
 }
 
 int daysCountInMonth(int month, int year) {
-  if ([1, 3, 5, 7, 8, 10, 12].contains(month)) return 31;
-  else if ([4, 6, 9, 11].contains(month)) return 30;
+  if ([1, 3, 5, 7, 8, 10, 12].contains(month))
+    return 31;
+  else if ([4, 6, 9, 11].contains(month))
+    return 30;
   else {
-    if (isLeapYear(year)) return 29;
-    else return 28;
+    if (isLeapYear(year))
+      return 29;
+    else
+      return 28;
   }
   ;
 }
@@ -47,7 +51,9 @@ int solve(int startingYear, int endingYear) {
       currentDay = (currentDay + daysCountInMonth(month, currentYear)) % 7;
   // Nb of Sundays between StartingYear and EndingYear
   for (; currentYear <= endingYear; currentYear++) {
-    if (showDebug) print('Number of Sundays that fell on the first of the month during the year ${currentYear}: ${currentDay}');
+    if (showDebug)
+      print(
+          'Number of Sundays that fell on the first of the month during the year ${currentYear}: ${currentDay}');
     for (int month = 1; month <= 12; month++) {
       if (currentDay == 6) sundaysCount++;
       currentDay = (currentDay + daysCountInMonth(month, currentYear)) % 7;
@@ -76,8 +82,9 @@ void main() {
   assert(daysCountInMonth(12, 1900) == 31);
 
   DateTime creationTime = new DateTime.now();
-  int result = solve(startingYear,endingYear);
-  print('Number of Sundays that fell on the first of the month between $startingYear and $endingYear: $result');
+  int result = solve(startingYear, endingYear);
+  print(
+      'Number of Sundays that fell on the first of the month between $startingYear and $endingYear: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

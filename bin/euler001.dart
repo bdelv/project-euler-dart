@@ -13,9 +13,8 @@ const int maxNumber = 1000;
 
 int solve(int maxNumber) {
   int Sum = 0;
-  for (int i = 1;
-      i < maxNumber;
-      i++) if ((i % 3 == 0) || (i % 5 == 0)) Sum += i;
+  for (int i = 1; i < maxNumber; i++)
+    if ((i % 3 == 0) || (i % 5 == 0)) Sum += i;
   return Sum;
 }
 

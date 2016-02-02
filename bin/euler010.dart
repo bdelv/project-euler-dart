@@ -23,7 +23,7 @@ int solve(int maxPrime) {
     numberToTest += 2; // only checks the odd numbers
     int sqRoot = sqrt(numberToTest).floor();
     bool IsPrime = true;
-    for (int i = 0; ; i++) {
+    for (int i = 0;; i++) {
       // current prime is bigger than the square root of current number => prime number
       if (primesList[i] > sqRoot) break;
       // current prime divides the current number? => non prime number

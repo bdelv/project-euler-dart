@@ -21,11 +21,12 @@ const int spiralSize = 1001;
 const bool showDebug = false;
 
 int solve(int SpiralSize) {
-  if (SpiralSize % 2 ==
-      0) throw new ArgumentError("Spiral size: $SpiralSize (should be odd)");
+  if (SpiralSize % 2 == 0)
+    throw new ArgumentError("Spiral size: $SpiralSize (should be odd)");
   // Creates the grid
   List<List<int>> spiralGrid = new List<List<int>>(SpiralSize);
-  for (int i = 0; i < SpiralSize; i++) spiralGrid[i] = new List<int>(SpiralSize);
+  for (int i = 0; i < SpiralSize; i++)
+    spiralGrid[i] = new List<int>(SpiralSize);
   // Fill the grid
   int _halfSize = (SpiralSize - 1) ~/ 2;
   int x = _halfSize;
@@ -69,15 +70,15 @@ int solve(int SpiralSize) {
       }
     }
   }
-  if (showDebug) for (int i = 0; i < SpiralSize; i++) print(spiralGrid[i].join(' '));
+  if (showDebug)
+    for (int i = 0; i < SpiralSize; i++) print(spiralGrid[i].join(' '));
   // Calculates the sum of the numbers on the diagonals
   int _res = 1; // Center value: 1
-  for (int i = 1;
-      i <= _halfSize;
-      i++) _res += spiralGrid[_halfSize + i][_halfSize + i] +
-          spiralGrid[_halfSize + i][_halfSize - i] +
-          spiralGrid[_halfSize - i][_halfSize - i] +
-          spiralGrid[_halfSize - i][_halfSize + i];
+  for (int i = 1; i <= _halfSize; i++)
+    _res += spiralGrid[_halfSize + i][_halfSize + i] +
+        spiralGrid[_halfSize + i][_halfSize - i] +
+        spiralGrid[_halfSize - i][_halfSize - i] +
+        spiralGrid[_halfSize - i][_halfSize + i];
   return _res;
 }
 

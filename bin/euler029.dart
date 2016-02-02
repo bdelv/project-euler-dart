@@ -23,9 +23,9 @@ const bool showDebug = true;
 
 int solve(int maxValue) {
   Map resultMap = new Map();
-  for (int a = 2; a <= maxValue; a++) for (int b = 2;
-      b <= maxValue;
-      b++) resultMap.putIfAbsent(math.pow(a, b), () => true);
+  for (int a = 2; a <= maxValue; a++)
+    for (int b = 2; b <= maxValue; b++)
+      resultMap.putIfAbsent(math.pow(a, b), () => true);
   if (showDebug) print("2<=a<=$maxValue: ${resultMap.keys.toString()}");
   return resultMap.length;
 }

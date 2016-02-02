@@ -27,8 +27,10 @@ int calcChainLength(int start) {
   int nb = 1;
   while (true) {
     nb++;
-    if (start.isEven) start ~/= 2;
-    else start = 3 * start + 1;
+    if (start.isEven)
+      start ~/= 2;
+    else
+      start = 3 * start + 1;
     if (start == 1) return nb;
   }
 }
@@ -52,7 +54,8 @@ void main() {
 
   DateTime creationTime = new DateTime.now();
   int result = solve(startingUnder);
-  print('Starting number (under $startingUnder) that produces the longest chain: $result');
+  print(
+      'Starting number (under $startingUnder) that produces the longest chain: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

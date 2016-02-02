@@ -34,13 +34,14 @@ int solve(int nbDivisors) {
     triangleNumber += i;
 
     int NbDivisors = 0;
-    int limit=math.sqrt(triangleNumber).floor();
-    for (int j = 1;
-        j < limit;
-        j++) if (triangleNumber % j == 0) NbDivisors+=2;
+    int limit = math.sqrt(triangleNumber).floor();
+    for (int j = 1; j < limit; j++)
+      if (triangleNumber % j == 0) NbDivisors += 2;
     if (NbDivisors > maxDivisors) {
       maxDivisors = NbDivisors;
-      if (showDebug) print("Nb divisors found: $maxDivisors (from triangle number $triangleNumber)");
+      if (showDebug)
+        print(
+            "Nb divisors found: $maxDivisors (from triangle number $triangleNumber)");
     }
     if (NbDivisors >= nbDivisors) return triangleNumber;
   }

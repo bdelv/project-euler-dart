@@ -6,11 +6,11 @@ Euler discovered the remarkable quadratic formula:
 
 n² + n + 41
 
-It turns out that the formula will produce 40 primes for the consecutive values n = 0 to 39. 
-However, when n = 40, 402 + 40 + 41 = 40(40 + 1) + 41 is divisible by 41, 
+It turns out that the formula will produce 40 primes for the consecutive values n = 0 to 39.
+However, when n = 40, 402 + 40 + 41 = 40(40 + 1) + 41 is divisible by 41,
 and certainly when n = 41, 41² + 41 + 41 is clearly divisible by 41.
 
-The incredible formula  n² − 79n + 1601 was discovered, which produces 80 primes 
+The incredible formula  n² − 79n + 1601 was discovered, which produces 80 primes
 for the consecutive values n = 0 to 79. The product of the coefficients, −79 and 1601, is −126479.
 
 Considering quadratics of the form:
@@ -19,7 +19,7 @@ n² + an + b, where |a| < 1000 and |b| < 1000
 
 where |n| is the modulus/absolute value of n
 e.g. |11| = 11 and |−4| = 4
-Find the product of the coefficients, a and b, for the quadratic expression that produces 
+Find the product of the coefficients, a and b, for the quadratic expression that produces
 the maximum number of primes for consecutive values of n, starting with n = 0.
 */
 
@@ -50,6 +50,7 @@ bool isPrime(int number) {
   // if we get here, the number is prime
   return true;
 }
+
 // Calculates the number of consecutive prime numbers for the quadratic
 // n*n + n*a + b for n >= 0
 int quadraticPrimesCount(int a, int b) {
@@ -57,15 +58,15 @@ int quadraticPrimesCount(int a, int b) {
   while (isPrime((_count * _count + a * _count + b).abs())) _count++;
   return _count;
 }
+
 // Brute force "find the biggest number of primes"
 // for |a|<MAX_VALUE amd |b|<MAX_VALUE
 int solve(int maxValue) {
   int _maxCount = 0;
   int _tmpCount;
   int _res;
-  for (int a = -maxValue + 1; a < maxValue; a++) for (int b = -maxValue + 1;
-      b < maxValue;
-      b++) {
+  for (int a = -maxValue + 1; a < maxValue; a++)
+    for (int b = -maxValue + 1; b < maxValue; b++) {
     _tmpCount = quadraticPrimesCount(a, b);
     if (_tmpCount > _maxCount) {
       if (showDebug) print("QuadraticPrimesCount($a, $b) = $_tmpCount");

@@ -15,8 +15,7 @@ const int adjacentDigitsCount = 13;
 const bool showDebug = true;
 
 int solve(int adjacentDigitsCount) {
-  const String Number =
-      '73167176531330624919225119674426574742355349194934'
+  const String Number = '73167176531330624919225119674426574742355349194934'
       '96983520312774506326239578318016984801869478851843'
       '85861560789112949495459501737958331952853208805511'
       '12540698747158523863050715693290963295227443043557'
@@ -57,7 +56,8 @@ void main() {
 
   DateTime creationTime = new DateTime.now();
   int result = solve(adjacentDigitsCount);
-  print('max product of $adjacentDigitsCount adjacent digits in the 1000-digit given number: $result');
+  print(
+      'max product of $adjacentDigitsCount adjacent digits in the 1000-digit given number: $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

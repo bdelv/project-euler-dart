@@ -72,7 +72,8 @@ void main() {
 
   DateTime creationTime = new DateTime.now();
   int result = solve(maxD);
-  print("Value of d < $maxD for which 1/d contains the longest recurring cycle in its decimal fraction part: $result");
+  print(
+      "Value of d < $maxD for which 1/d contains the longest recurring cycle in its decimal fraction part: $result");
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }
