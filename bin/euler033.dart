@@ -15,14 +15,15 @@ import 'dart:math';
 
 const int maxDigits = 2;
 
+// unoptimized fraction simplification
 String simplifyFraction(int nom, int denom) {
   int tmp = nom;
-  while (tmp > 2) {
+  while (tmp >= 2) {
     if ((nom % tmp == 0) && (denom % tmp == 0)) {
       nom ~/= tmp;
       denom ~/= tmp;
-    }
-    tmp--;
+    } else
+      tmp--;
   }
   return ("${nom.toString()}/${denom.toString()}");
 }
@@ -52,6 +53,7 @@ int solve() {
       denomProduct *= denom;
     }
   }
+  // Symplify the product of the curious fractions found
   return int.parse(simplifyFraction(nomProduct, denomProduct).split("/")[1]);
 }
 
@@ -64,7 +66,7 @@ void main() {
   DateTime creationTime = new DateTime.now();
   int result = solve();
   print(
-      'Nominators product of the curious fractions of $maxDigits digits = $result');
+      'Lowest denominator of product of the curious fractions of $maxDigits digits = $result');
   DateTime finishTime = new DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }
