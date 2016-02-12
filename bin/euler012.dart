@@ -33,17 +33,17 @@ int solve(int nbDivisors) {
   for (int i = 1;; i++) {
     triangleNumber += i;
 
-    int NbDivisors = 0;
+    int _nbDivisors = 0;
     int limit = math.sqrt(triangleNumber).floor();
     for (int j = 1; j < limit; j++)
-      if (triangleNumber % j == 0) NbDivisors += 2;
-    if (NbDivisors > maxDivisors) {
-      maxDivisors = NbDivisors;
+      if (triangleNumber % j == 0) _nbDivisors += 2;
+    if (_nbDivisors > maxDivisors) {
+      maxDivisors = _nbDivisors;
       if (showDebug)
         print(
             "Nb divisors found: $maxDivisors (from triangle number $triangleNumber)");
     }
-    if (NbDivisors >= nbDivisors) return triangleNumber;
+    if (_nbDivisors >= nbDivisors) return triangleNumber;
   }
 }
 

@@ -20,22 +20,22 @@ import 'dart:core';
 const int spiralSize = 1001;
 const bool showDebug = false;
 
-int solve(int SpiralSize) {
-  if (SpiralSize % 2 == 0)
-    throw new ArgumentError("Spiral size: $SpiralSize (should be odd)");
+int solve(int _spiralSize) {
+  if (_spiralSize % 2 == 0)
+    throw new ArgumentError("Spiral size: $_spiralSize (should be odd)");
   // Creates the grid
-  List<List<int>> spiralGrid = new List<List<int>>(SpiralSize);
-  for (int i = 0; i < SpiralSize; i++)
-    spiralGrid[i] = new List<int>(SpiralSize);
+  List<List<int>> spiralGrid = new List<List<int>>(_spiralSize);
+  for (int i = 0; i < _spiralSize; i++)
+    spiralGrid[i] = new List<int>(_spiralSize);
   // Fill the grid
-  int _halfSize = (SpiralSize - 1) ~/ 2;
+  int _halfSize = (_spiralSize - 1) ~/ 2;
   int x = _halfSize;
   int y = x;
   int _count = 1;
   // Fills the center with the first value (1)
   spiralGrid[y][x] = _count++;
   // Draw the squares around the center
-  for (int _size = 2; _size < SpiralSize; _size += 2) {
+  for (int _size = 2; _size < _spiralSize; _size += 2) {
     int incX;
     int incY;
     // Starts from top right cell
@@ -71,7 +71,7 @@ int solve(int SpiralSize) {
     }
   }
   if (showDebug)
-    for (int i = 0; i < SpiralSize; i++) print(spiralGrid[i].join(' '));
+    for (int i = 0; i < _spiralSize; i++) print(spiralGrid[i].join(' '));
   // Calculates the sum of the numbers on the diagonals
   int _res = 1; // Center value: 1
   for (int i = 1; i <= _halfSize; i++)

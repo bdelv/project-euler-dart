@@ -14,9 +14,9 @@ const bool showDebug = true;
 
 // ------------------- Method 1: Brute force ---------------------
 int solveBruteForce(int nbDividers) {
-  bool divideTest(int Nb, int nbDividers) {
+  bool divideTest(int nb, int nbDividers) {
     for (int i = (nbDividers ~/ 2) + 1; i <= nbDividers; i++) {
-      if (Nb % i != 0) return false;
+      if (nb % i != 0) return false;
     }
     return true;
   }
@@ -53,8 +53,8 @@ int solve(int nbDividers) {
     print('Prime divisors found in 1..$nbDividers: $listNbDividers');
   // Calculate the smallest number
   int result = 1;
-  for (int CurrDiv = 1; CurrDiv < listNbDividers.length; CurrDiv++) {
-    for (int i = 1; i <= listNbDividers[CurrDiv - 1]; i++) result *= CurrDiv;
+  for (int currDiv = 1; currDiv < listNbDividers.length; currDiv++) {
+    for (int i = 1; i <= listNbDividers[currDiv - 1]; i++) result *= currDiv;
   }
   return result;
 }

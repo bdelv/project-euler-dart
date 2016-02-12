@@ -22,17 +22,17 @@ int solve(int maxPrime) {
   while (numberToTest + 2 < maxPrime) {
     numberToTest += 2; // only checks the odd numbers
     int sqRoot = sqrt(numberToTest).floor();
-    bool IsPrime = true;
+    bool isPrime = true;
     for (int i = 0;; i++) {
       // current prime is bigger than the square root of current number => prime number
       if (primesList[i] > sqRoot) break;
       // current prime divides the current number? => non prime number
       if (numberToTest % primesList[i] == 0) {
-        IsPrime = false;
+        isPrime = false;
         break;
       }
     }
-    if (IsPrime) {
+    if (isPrime) {
       primesList[idxPrime++] = numberToTest;
       sumPrimes += numberToTest;
       if (showDebug) print(numberToTest);

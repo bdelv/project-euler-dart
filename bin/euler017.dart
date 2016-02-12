@@ -18,7 +18,7 @@ import 'dart:core';
 const int maxNb = 1000;
 const bool showDebug = true;
 
-Map<int, String> MapNumbers = {
+Map<int, String> mapNumbers = {
   1: 'one',
   2: 'two',
   3: 'three',
@@ -52,8 +52,8 @@ Map<int, String> MapNumbers = {
 
 String number2Text(int num) {
   String result = '';
-  if (MapNumbers.containsKey(num))
-    result = MapNumbers[num];
+  if (mapNumbers.containsKey(num))
+    result = mapNumbers[num];
   else if (num < 100) {
     result = number2Text(num - (num % 10));
     if (num % 10 > 0) result += '-' + number2Text(num % 10);

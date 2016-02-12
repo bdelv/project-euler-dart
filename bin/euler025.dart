@@ -160,16 +160,16 @@ int solveWithoutBigInt(int digitsCount) {
 // --------------- Method 1: Using Dart internal BigInt (doesn't work in Javascript) ----------
 int solveBigInt(int digitsCount) {
   int fibonacci = 1;
-  int Prev1 = 1;
-  int Prev2 = 0;
+  int prev1 = 1;
+  int prev2 = 0;
 
   int maxNumber = math.pow(10, digitsCount - 1);
   int countFibo = 2;
   while (fibonacci < maxNumber) {
     countFibo++;
-    Prev2 = Prev1;
-    Prev1 = fibonacci;
-    fibonacci = Prev1 + Prev2;
+    prev2 = prev1;
+    prev1 = fibonacci;
+    fibonacci = prev1 + prev2;
   }
   if (showDebug)
     print('First Fibonacci number with $digitsCount digits: $fibonacci');

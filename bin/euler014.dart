@@ -35,17 +35,17 @@ int calcChainLength(int start) {
   }
 }
 
-int solve(int StartingUnder) {
+int solve(int _startingUnder) {
   int maxChainLength = 0;
   int startingNbMaxSum = 0;
-  for (int i = 1; i < StartingUnder; i++) {
+  for (int i = 1; i < _startingUnder; i++) {
     int tempChainLength = calcChainLength(i);
     if (tempChainLength > maxChainLength) {
       maxChainLength = tempChainLength;
       startingNbMaxSum = i;
     }
   }
-  if (showDebug) print('Max Chain length($StartingUnder): $maxChainLength');
+  if (showDebug) print('Max Chain length($_startingUnder): $maxChainLength');
   return startingNbMaxSum;
 }
 

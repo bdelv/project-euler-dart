@@ -17,9 +17,9 @@ const bool showDebug = false;
 int solve(int gridSizeX, gridSizeY) {
   List<List<int>> cacheRoutesCount = new List(gridSizeY + 1);
   for (int i = 0; i < gridSizeY + 1; i++) {
-    List Tmp = new List<int>(gridSizeX + 1);
-    Tmp.fillRange(0, gridSizeX + 1, -1);
-    cacheRoutesCount[i] = Tmp;
+    List tmp = new List<int>(gridSizeX + 1);
+    tmp.fillRange(0, gridSizeX + 1, -1);
+    cacheRoutesCount[i] = tmp;
   }
 
   int calcRoutesCount(int nbx, int nby) {

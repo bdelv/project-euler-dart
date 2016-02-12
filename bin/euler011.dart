@@ -37,7 +37,7 @@ const int adjacentNumbersCount = 4;
 const showDebug = true;
 
 const int gridSize = 20;
-List<String> GridTxt = [
+List<String> gridTxt = [
   "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08",
   "49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00",
   "81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65",
@@ -75,11 +75,11 @@ int solve(int adjacentNumbersCount) {
   }
 
   // converts the input data into an int matrix
-  List<List<int>> Grid = new List<List<int>>();
-  for (int y = 0; y < GridTxt.length; y++) {
-    List tmpStr = GridTxt[y].toString().split(" ");
-    Grid.add(new List<int>());
-    tmpStr.forEach((f) => Grid[y].add(int.parse(f)));
+  List<List<int>> grid = new List<List<int>>();
+  for (int y = 0; y < gridTxt.length; y++) {
+    List tmpStr = gridTxt[y].toString().split(" ");
+    grid.add(new List<int>());
+    tmpStr.forEach((f) => grid[y].add(int.parse(f)));
   }
 
   for (int y = 0; y < gridSize; y++) {
@@ -88,14 +88,14 @@ int solve(int adjacentNumbersCount) {
       if (x + adjacentNumbersCount <= gridSize) {
         tempList.clear();
         for (int i = 0; i < adjacentNumbersCount; i++)
-          tempList.add(Grid[y][x + i]);
+          tempList.add(grid[y][x + i]);
         testList();
       }
       //vertical
       if (y + adjacentNumbersCount <= gridSize) {
         tempList.clear();
         for (int i = 0; i < adjacentNumbersCount; i++)
-          tempList.add(Grid[y + i][x]);
+          tempList.add(grid[y + i][x]);
         testList();
       }
       //diagonal 1
@@ -103,7 +103,7 @@ int solve(int adjacentNumbersCount) {
           (y + adjacentNumbersCount <= gridSize)) {
         tempList.clear();
         for (int i = 0; i < adjacentNumbersCount; i++)
-          tempList.add(Grid[y + i][x + i]);
+          tempList.add(grid[y + i][x + i]);
         testList();
       }
       //diagonal 2
@@ -111,7 +111,7 @@ int solve(int adjacentNumbersCount) {
           (y + adjacentNumbersCount <= gridSize)) {
         tempList.clear();
         for (int i = 0; i < adjacentNumbersCount; i++)
-          tempList.add(Grid[y + adjacentNumbersCount - i - 1][x + i]);
+          tempList.add(grid[y + adjacentNumbersCount - i - 1][x + i]);
         testList();
       }
     }

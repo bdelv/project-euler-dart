@@ -85,7 +85,7 @@ int solve(List<String> listStr) {
     listCache.add(tmpCache);
   }
   // Search for the max total up to bottom
-  if (showDebug) listStr.forEach((Str) => print(Str));
+  if (showDebug) listStr.forEach((str) => print(str));
   return maxTotal(0, 0);
 }
 
