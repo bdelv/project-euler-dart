@@ -1,12 +1,10 @@
-# dartpad-euler
+# dart-euler
 
-Some Project Euler problems Dartpad-ified (1 file / 1 problem solved / no funky libraries)
+Some "Project Euler" problems
 
 [Project Euler](https://projecteuler.net/)
 
 [Dart](https://www.dartlang.org/)
-
-[Dartpad](https://dartpad.dartlang.org/)
 
 ## To test in Dartpad
 
@@ -32,7 +30,7 @@ Just **run** any eulerxxx.dart file from the **bin** folder.
 ### from the command line
 
 * Make sure **pub** is accessible from the command line. If not, add the PATH in **~/.profile** (Linux) or your environment variables (Windows)
-* Go in the **dartpad-euler** folder
+* Go in the **dart-euler** folder
 * run a problem by typing something like:
 ```
 pub run euler012.dart
