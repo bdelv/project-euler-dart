@@ -30,8 +30,12 @@ const int maxValue = 1000;
 const bool showDebug = true;
 
 bool isPrime(int number) {
-  // manually test 2 and 3
-  if (number > 3) if (number % 2 == 0 || number % 3 == 0) return false;
+  if (number <= 1)
+    return false;
+  else if (number <= 3)
+    return true;
+  // manually test 2 and 3 divisors
+  else if (number % 2 == 0 || number % 3 == 0) return false;
   // we can now avoid to consider multiples
   // of 2 and 3. This can be done really simply
   // by starting at 5 and incrementing by 2 and 4
