@@ -20,38 +20,40 @@ List<int> coinsAvailable = [200, 100, 50, 20, 10, 5, 2, 1];
 
 int solve(int cashAmount) {
   int coinsPermut(
-      int remaining, List<int> _coinsTaken, List<int> _coinsAvailable) {
+      int remaining, List<int> coinsTaken, List<int> coinsAvailable) {
     if (remaining == 0) {
-      if (showDebug) print(_coinsTaken);
+      if (showDebug) print(coinsTaken);
       return 1;
     }
-    int _res = 0;
-    List<int> _tmpCoinsAvailable = new List<int>()..addAll(_coinsAvailable);
-    for (int _idx = 0; _idx < _tmpCoinsAvailable.length; _idx++) {
-      if (_tmpCoinsAvailable[_idx] > 0) {
-        int _tmpRemaining = remaining - _tmpCoinsAvailable[_idx];
-        if (_tmpRemaining >= 0) {
-          List<int> _tmpCoinsTaken = new List<int>()..addAll(_coinsTaken);
-          _tmpCoinsTaken[_idx]++;
-          _res +=
-              coinsPermut(_tmpRemaining, _tmpCoinsTaken, _tmpCoinsAvailable);
+    int res = 0;
+    List<int> tmpCoinsAvailable = [];
+    tmpCoinsAvailable.addAll(coinsAvailable);
+    for (int idx = 0; idx < tmpCoinsAvailable.length; idx++) {
+      if (tmpCoinsAvailable[idx] > 0) {
+        int tmpRemaining = remaining - tmpCoinsAvailable[idx];
+        if (tmpRemaining >= 0) {
+          List<int> tmpCoinsTaken = [];
+          tmpCoinsTaken.addAll(coinsTaken);
+          tmpCoinsTaken[idx]++;
+          res += coinsPermut(tmpRemaining, tmpCoinsTaken, tmpCoinsAvailable);
         }
       }
-      _tmpCoinsAvailable[_idx] = -1;
+      tmpCoinsAvailable[idx] = -1;
     }
-    return _res;
+    return res;
   }
-  List<int> _emptyCoinsTaken = new List<int>(coinsAvailable.length)
-    ..fillRange(0, coinsAvailable.length, 0);
-  int _res = coinsPermut(cashAmount, _emptyCoinsTaken, coinsAvailable);
-  return _res;
+
+  List<int> emptyCoinsTaken =
+      List<int>.filled(coinsAvailable.length, 0, growable: false);
+  int res = coinsPermut(cashAmount, emptyCoinsTaken, coinsAvailable);
+  return res;
 }
 
 void main() {
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(cashAmount);
   print(
       "Dfferent ways $cashAmount pences can be made using any number of the coins $coinsAvailable: $result");
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

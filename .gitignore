@@ -1,20 +1,21 @@
-# Don’t commit the following directories created by pub.
-.buildlog
-.pub/
-build/
-packages
+# Recursively ignore all files matching ".txt" (excludes the AOC input files)
+**/*.txt
+
+# dart files
+.dart_tool/
 .packages
+build/
 pubspec.lock
+doc/api/
 
-# Or the files created by dart2js.
-*.dart.js
-*.js_
-*.js.deps
-*.js.map
+# vscode files
+.vscode/**/*
 
-.idea/
-.project
+# IntelliJ
+*.iml
 *.ipr
 *.iws
+.idea/
+
+# Mac
 .DS_Store
-.atom/

@@ -13,7 +13,7 @@ const int primeIdxToFind = 10001;
 const bool showDebug = true;
 
 int solve(int primeIdxToFind) {
-  List<int> primesList = new List<int>(primeIdxToFind);
+  List<int> primesList = List<int>.filled(primeIdxToFind, 0, growable: false);
 
   int idxPrime = 0;
   primesList[idxPrime++] = 2;
@@ -40,9 +40,9 @@ int solve(int primeIdxToFind) {
 void main() {
   assert(solve(6) == 13);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(primeIdxToFind);
   print('Prime nunber $primeIdxToFind: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

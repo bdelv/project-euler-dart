@@ -38,10 +38,10 @@ int solve(int numberCount) {
 void main() {
   assert(solve(10) == 2640);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(numberCount);
   print(
       'Square_of_the_sum($numberCount) - sum_of_the_squares($numberCount) = $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

@@ -22,21 +22,22 @@ String simplifyFraction(int nom, int denom) {
     if ((nom % tmp == 0) && (denom % tmp == 0)) {
       nom ~/= tmp;
       denom ~/= tmp;
-    } else
+    } else {
       tmp--;
+    }
   }
   return ("${nom.toString()}/${denom.toString()}");
 }
 
 bool isCuriousFraction(int nom, int denom) {
-  String _strNom = nom.toString();
-  String _strDenom = denom.toString();
+  String strNom = nom.toString();
+  String strDenom = denom.toString();
   for (int digit = 1; digit <= 9; digit++) {
-    String _strDigit = digit.toString();
-    if ((_strNom.contains(_strDigit)) && (_strDenom.contains(_strDigit))) {
-      return (simplifyFraction(int.parse(_strNom.replaceFirst(_strDigit, "")),
-              int.parse(_strDenom.replaceFirst(_strDigit, ""))) ==
-          simplifyFraction(int.parse(_strNom), int.parse(_strDenom)));
+    String strDigit = digit.toString();
+    if ((strNom.contains(strDigit)) && (strDenom.contains(strDigit))) {
+      return (simplifyFraction(int.parse(strNom.replaceFirst(strDigit, "")),
+              int.parse(strDenom.replaceFirst(strDigit, ""))) ==
+          simplifyFraction(int.parse(strNom), int.parse(strDenom)));
     }
   }
   return false;
@@ -45,12 +46,15 @@ bool isCuriousFraction(int nom, int denom) {
 int solve() {
   int nomProduct = 1;
   int denomProduct = 1;
-  for (int denom = pow(10, maxDigits - 1); denom < pow(10, maxDigits); denom++)
-    for (int nom = pow(10, maxDigits - 1); nom < denom; nom++) {
-    if (isCuriousFraction(nom, denom)) {
-      print("$nom/$denom");
-      nomProduct *= nom;
-      denomProduct *= denom;
+  for (int denom = pow(10, maxDigits - 1) as int;
+      denom < pow(10, maxDigits);
+      denom++) {
+    for (int nom = pow(10, maxDigits - 1) as int; nom < denom; nom++) {
+      if (isCuriousFraction(nom, denom)) {
+        print("$nom/$denom");
+        nomProduct *= nom;
+        denomProduct *= denom;
+      }
     }
   }
   // Symplify the product of the curious fractions found
@@ -63,10 +67,10 @@ void main() {
   assert(!isCuriousFraction(40, 50)); // trivial examples excluded
   assert(!isCuriousFraction(39, 98));
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve();
   print(
       'Lowest denominator of product of the curious fractions of $maxDigits digits = $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

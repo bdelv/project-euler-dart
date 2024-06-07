@@ -52,29 +52,32 @@ Map<int, String> mapNumbers = {
 
 String number2Text(int num) {
   String result = '';
-  if (mapNumbers.containsKey(num))
-    result = mapNumbers[num];
-  else if (num < 100) {
+  if (mapNumbers.containsKey(num)) {
+    result = mapNumbers[num]!;
+  } else if (num < 100) {
     result = number2Text(num - (num % 10));
-    if (num % 10 > 0) result += '-' + number2Text(num % 10);
+    if (num % 10 > 0) result += '-${number2Text(num % 10)}';
   } else if (num < 1000) {
-    result += number2Text(num ~/ 100) + ' hundred';
-    if (num % 100 > 0) result += ' and ' + number2Text(num % 100);
+    result += '${number2Text(num ~/ 100)} hundred';
+    if (num % 100 > 0) result += ' and ${number2Text(num % 100)}';
   }
   return result;
 }
 
 int lettersCount(String str) {
   int sum = 0;
-  for (int i = 0; i < str.length; i++)
+  for (int i = 0; i < str.length; i++) {
     if ((str[i] != ' ') && (str[i] != '-')) sum++;
+  }
   if (showDebug) print("$str / $sum letters");
   return sum;
 }
 
 int solve(int maxNb) {
   int sum = 0;
-  for (int i = 1; i <= maxNb; i++) sum += lettersCount(number2Text(i));
+  for (int i = 1; i <= maxNb; i++) {
+    sum += lettersCount(number2Text(i));
+  }
   return sum;
 }
 
@@ -85,10 +88,10 @@ void main() {
   assert(lettersCount(number2Text(115)) == 20);
   assert(solve(5) == 19);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxNb);
   print(
       'Total number of letters in 1 to $maxNb (inclusive) written out in words: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

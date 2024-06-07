@@ -15,12 +15,15 @@ const maxNumber = 11;
 const bool showDebug = true;
 
 bool isPrime(int number) {
-  if (number <= 1)
+  if (number <= 1) {
     return false;
-  else if (number <= 3)
+  } else if (number <= 3) {
     return true;
+  }
   // manually test 2 and 3 divisors
-  else if (number % 2 == 0 || number % 3 == 0) return false;
+  else if (number % 2 == 0 || number % 3 == 0) {
+    return false;
+  }
   // we can now avoid to consider multiples
   // of 2 and 3. This can be done really simply
   // by starting at 5 and incrementing by 2 and 4
@@ -44,10 +47,11 @@ bool isTruncatableLeft(int num) {
   if (isPrime(num)) {
     String str = num.toString();
     str = str.substring(1);
-    if (str.length <= 0)
+    if (str.isEmpty) {
       return true;
-    else
+    } else {
       return isTruncatableLeft(int.parse(str));
+    }
   }
   return false;
 }
@@ -56,10 +60,11 @@ bool isTruncatableRight(int num) {
   if (isPrime(num)) {
     String str = num.toString();
     str = str.substring(0, str.length - 1);
-    if (str.length <= 0)
+    if (str.isEmpty) {
       return true;
-    else
+    } else {
       return isTruncatableRight(int.parse(str));
+    }
   }
   return false;
 }
@@ -91,10 +96,10 @@ void main() {
   assert(isTruncatable(3797));
   assert(!isTruncatable(3798));
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxNumber);
   print(
       "Sum of the only $maxNumber primes that are both truncatable from left to right and right to left: $result");
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

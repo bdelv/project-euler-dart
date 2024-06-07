@@ -27,35 +27,36 @@ int calcChainLength(int start) {
   int nb = 1;
   while (true) {
     nb++;
-    if (start.isEven)
+    if (start.isEven) {
       start ~/= 2;
-    else
+    } else {
       start = 3 * start + 1;
+    }
     if (start == 1) return nb;
   }
 }
 
-int solve(int _startingUnder) {
+int solve(int startingUnder) {
   int maxChainLength = 0;
   int startingNbMaxSum = 0;
-  for (int i = 1; i < _startingUnder; i++) {
+  for (int i = 1; i < startingUnder; i++) {
     int tempChainLength = calcChainLength(i);
     if (tempChainLength > maxChainLength) {
       maxChainLength = tempChainLength;
       startingNbMaxSum = i;
     }
   }
-  if (showDebug) print('Max Chain length($_startingUnder): $maxChainLength');
+  if (showDebug) print('Max Chain length($startingUnder): $maxChainLength');
   return startingNbMaxSum;
 }
 
 void main() {
   assert(calcChainLength(13) == 10);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(startingUnder);
   print(
       'Starting number (under $startingUnder) that produces the longest chain: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

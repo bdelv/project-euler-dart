@@ -13,7 +13,7 @@ const int maxPrime = 2000000;
 const bool showDebug = false;
 
 int solve(int maxPrime) {
-  List<int> primesList = new List<int>(maxPrime);
+  List<int> primesList = List<int>.filled(maxPrime, 0, growable: false);
 
   int idxPrime = 0;
   primesList[idxPrime++] = 2;
@@ -44,9 +44,9 @@ int solve(int maxPrime) {
 void main() {
   assert(solve(10) == 17);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxPrime);
   print('Sum of primes below $maxPrime = $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

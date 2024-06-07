@@ -14,31 +14,30 @@ const int gridSizeX = 20;
 const int gridSizeY = 20;
 const bool showDebug = false;
 
-int solve(int gridSizeX, gridSizeY) {
-  List<List<int>> cacheRoutesCount = new List(gridSizeY + 1);
-  for (int i = 0; i < gridSizeY + 1; i++) {
-    List tmp = new List<int>(gridSizeX + 1);
-    tmp.fillRange(0, gridSizeX + 1, -1);
-    cacheRoutesCount[i] = tmp;
+int solve(int gridSizeX, int gridSizeY) {
+  List<List<int>> cacheRoutesCount = [];
+  for (int y = 0; y <= gridSizeY; y++) {
+    cacheRoutesCount.add(List<int>.filled(gridSizeX + 1, -1, growable: false));
   }
-
   int calcRoutesCount(int nbx, int nby) {
     if ((nbx == 0) || (nby == 0)) return 1;
-    if (cacheRoutesCount[nby][nbx] < 0)
+    if (cacheRoutesCount[nby][nbx] < 0) {
       cacheRoutesCount[nby][nbx] =
           calcRoutesCount(nbx - 1, nby) + calcRoutesCount(nbx, nby - 1);
+    }
     if (showDebug) print("Cache[$nby][$nbx]=${cacheRoutesCount[nby][nbx]}");
     return cacheRoutesCount[nby][nbx];
   }
+
   return calcRoutesCount(gridSizeX, gridSizeY);
 }
 
 void main() {
   assert(solve(2, 2) == 6);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(gridSizeX, gridSizeY);
   print('Number of routes on a $gridSizeX x $gridSizeY grid: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

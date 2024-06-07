@@ -9,7 +9,7 @@ import 'dart:core';
 const sumFirstDigitsCount = 10;
 const bool showDebug = true;
 
-List listNumbers = [
+List<String> listNumbers = [
   "37107287533902102798797998220837590246510135740250",
   "46376937677490009712648124896970078050417018260538",
   "74324986199524741059474233309513058123726617309629",
@@ -128,9 +128,9 @@ int solve() {
 }
 
 void main() {
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve();
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('First $sumFirstDigitsCount digits of the sum: $result');
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

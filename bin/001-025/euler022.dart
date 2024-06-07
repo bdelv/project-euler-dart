@@ -5187,11 +5187,11 @@ List<String> listStr = [
 ];
 
 int calcScore(String name, int idx) {
-  List<int> bytes = UTF8.encode(name);
-  List<int> listA = UTF8.encode("A");
+  List<int> bytes = utf8.encode(name);
+  List<int> listA = utf8.encode("A");
   int valueOfA = listA[0];
   int sum = bytes.fold(0, (int prev, int e) => prev + e - valueOfA + 1);
-  if (showDebug) print("$name: sum=$sum, idx=$idx, score=${sum*idx}");
+  if (showDebug) print("$name: sum=$sum, idx=$idx, score=${sum * idx}");
   return sum * idx;
 }
 
@@ -5199,14 +5199,16 @@ int solve() {
   listStr.sort();
   assert(calcScore('COLIN', listStr.indexOf('COLIN') + 1) == 49714);
   int sum = 0;
-  for (int j = 0; j < listStr.length; j++) sum += calcScore(listStr[j], j + 1);
+  for (int j = 0; j < listStr.length; j++) {
+    sum += calcScore(listStr[j], j + 1);
+  }
   return sum;
 }
 
 void main() {
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve();
   print('Total of the scores of the given words: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

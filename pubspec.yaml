@@ -1,4 +1,6 @@
-name: EulerProject
-description: A sample command-line application
-#dev_dependencies:
-#  unittest: any
+name: euler_roject_dart
+description: Problem solving from https://projecteuler.net/
+environment:
+  sdk: ^3.0.0
+dev_dependencies:
+  lints: ^4.0.0

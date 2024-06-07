@@ -33,26 +33,30 @@ int solve(int nbDivisors) {
   for (int i = 1;; i++) {
     triangleNumber += i;
 
-    int _nbDivisors = 0;
+    int tmpNbDivisors = 0;
     int limit = math.sqrt(triangleNumber).floor();
-    for (int j = 1; j < limit; j++)
-      if (triangleNumber % j == 0) _nbDivisors += 2;
-    if (_nbDivisors > maxDivisors) {
-      maxDivisors = _nbDivisors;
-      if (showDebug)
+    for (int j = 1; j < limit; j++) {
+      if (triangleNumber % j == 0) {
+        tmpNbDivisors += 2;
+      }
+    }
+    if (tmpNbDivisors > maxDivisors) {
+      maxDivisors = tmpNbDivisors;
+      if (showDebug) {
         print(
             "Nb divisors found: $maxDivisors (from triangle number $triangleNumber)");
+      }
     }
-    if (_nbDivisors >= nbDivisors) return triangleNumber;
+    if (tmpNbDivisors >= nbDivisors) return triangleNumber;
   }
 }
 
 void main() {
   assert(solve(5) == 28);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(nbDivisors);
   print('First triangle number with at least $nbDivisors divisors: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

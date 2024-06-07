@@ -20,15 +20,18 @@ int solveBruteForce(int nbDividers) {
     }
     return true;
   }
-  int currentNb;
-  for (currentNb = 1; !divideTest(currentNb, nbDividers); currentNb++);
+
+  int currentNb = 1;
+  while (!divideTest(currentNb, nbDividers)) {
+    currentNb++;
+  }
   return currentNb;
 }
 
 // ------------------- Method 2: Search max number of prime dividers ---------------------
 int solve(int nbDividers) {
   // create the lists of dividers for each number
-  List<int> listNbDividers = new List<int>(nbDividers);
+  List<int> listNbDividers = List<int>.filled(nbDividers, 0, growable: false);
   listNbDividers.fillRange(0, nbDividers, 0);
   listNbDividers[0] = 1;
   // Searches the prime dividers
@@ -41,20 +44,25 @@ int solve(int nbDividers) {
         divCount++;
         remaining ~/= currentDivisor;
       }
-      if (listNbDividers[currentDivisor - 1] < divCount)
+      if (listNbDividers[currentDivisor - 1] < divCount) {
         listNbDividers[currentDivisor - 1] = divCount;
-      if (currentDivisor.isEven)
+      }
+      if (currentDivisor.isEven) {
         currentDivisor++;
-      else
+      } else {
         currentDivisor += 2;
+      }
     }
   }
-  if (showDebug)
+  if (showDebug) {
     print('Prime divisors found in 1..$nbDividers: $listNbDividers');
+  }
   // Calculate the smallest number
   int result = 1;
   for (int currDiv = 1; currDiv < listNbDividers.length; currDiv++) {
-    for (int i = 1; i <= listNbDividers[currDiv - 1]; i++) result *= currDiv;
+    for (int i = 1; i <= listNbDividers[currDiv - 1]; i++) {
+      result *= currDiv;
+    }
   }
   return result;
 }
@@ -62,10 +70,10 @@ int solve(int nbDividers) {
 void main() {
   assert(solve(10) == 2520);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(nbDividers);
   print(
       'Smallest Number that can be divided by all numbers from 1 to $nbDividers : $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

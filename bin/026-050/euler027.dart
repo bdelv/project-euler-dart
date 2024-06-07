@@ -30,12 +30,15 @@ const int maxValue = 1000;
 const bool showDebug = true;
 
 bool isPrime(int number) {
-  if (number <= 1)
+  if (number <= 1) {
     return false;
-  else if (number <= 3)
+  } else if (number <= 3) {
     return true;
+  }
   // manually test 2 and 3 divisors
-  else if (number % 2 == 0 || number % 3 == 0) return false;
+  else if (number % 2 == 0 || number % 3 == 0) {
+    return false;
+  }
   // we can now avoid to consider multiples
   // of 2 and 3. This can be done really simply
   // by starting at 5 and incrementing by 2 and 4
@@ -58,27 +61,30 @@ bool isPrime(int number) {
 // Calculates the number of consecutive prime numbers for the quadratic
 // n*n + n*a + b for n >= 0
 int quadraticPrimesCount(int a, int b) {
-  int _count = 0;
-  while (isPrime((_count * _count + a * _count + b).abs())) _count++;
-  return _count;
+  int count = 0;
+  while (isPrime((count * count + a * count + b).abs())) {
+    count++;
+  }
+  return count;
 }
 
 // Brute force "find the biggest number of primes"
 // for |a|<MAX_VALUE amd |b|<MAX_VALUE
 int solve(int maxValue) {
-  int _maxCount = 0;
-  int _tmpCount;
-  int _res;
-  for (int a = -maxValue + 1; a < maxValue; a++)
+  int maxCount = 0;
+  int tmpCount;
+  int res = 0;
+  for (int a = -maxValue + 1; a < maxValue; a++) {
     for (int b = -maxValue + 1; b < maxValue; b++) {
-    _tmpCount = quadraticPrimesCount(a, b);
-    if (_tmpCount > _maxCount) {
-      if (showDebug) print("QuadraticPrimesCount($a, $b) = $_tmpCount");
-      _maxCount = _tmpCount;
-      _res = a * b;
+      tmpCount = quadraticPrimesCount(a, b);
+      if (tmpCount > maxCount) {
+        if (showDebug) print("QuadraticPrimesCount($a, $b) = $tmpCount");
+        maxCount = tmpCount;
+        res = a * b;
+      }
     }
   }
-  return _res;
+  return res;
 }
 
 void main() {
@@ -90,10 +96,10 @@ void main() {
   assert(quadraticPrimesCount(1, 41) == 40);
   assert(quadraticPrimesCount(-79, 1601) == 80);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxValue);
-  print("Product of the coefficients, a and b, for the quadratic expression that produces" +
-      " the maximum number of primes for consecutive values of n (for |a|<$maxValue and |b|<$maxValue: $result");
-  DateTime finishTime = new DateTime.now();
+  print(
+      "Product of the coefficients, a and b, for the quadratic expression that produces the maximum number of primes for consecutive values of n (for |a|<$maxValue and |b|<$maxValue: $result");
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

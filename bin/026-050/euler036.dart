@@ -33,10 +33,10 @@ void main() {
   assert(!isPalindromic("586"));
   assert(!isPalindromic("1001001002"));
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxNumber);
   print(
       "sum of all numbers,  (<$maxNumber), which are palindromic in base 10 and base 2: $result");
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

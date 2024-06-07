@@ -20,7 +20,9 @@ const bool showDebug = true;
 
 int sumOfDivisors(int num) {
   int sum = 0;
-  for (int i = 1; i <= num ~/ 2; i++) if (num % i == 0) sum += i;
+  for (int i = 1; i <= num ~/ 2; i++) {
+    if (num % i == 0) sum += i;
+  }
   return sum;
 }
 
@@ -42,9 +44,9 @@ void main() {
   assert(sumOfDivisors(220) == 284);
   assert(sumOfDivisors(284) == 220);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxAmicablesNumber);
   print('Sum of amicables < $maxAmicablesNumber: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

@@ -28,8 +28,7 @@ const bool showDebug = true;
 
 String findCycle(int denominator) {
   String result = '';
-  List<int> usedNominators = new List<int>(denominator);
-  usedNominators.fillRange(0, denominator, -1);
+  List<int> usedNominators = List<int>.filled(denominator, -1, growable: false);
 
   int nominator = 1;
   while (nominator > 0) {
@@ -70,10 +69,10 @@ void main() {
   assert(findCycle(6).length == 1);
   assert(findCycle(7).length == 6);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxD);
   print(
       "Value of d < $maxD for which 1/d contains the longest recurring cycle in its decimal fraction part: $result");
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

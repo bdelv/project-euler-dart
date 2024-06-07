@@ -58,8 +58,8 @@ List<String> listStr = [
 ];
 
 int solve(List<String> listStr) {
-  List<List<int>> listInt = new List<List<int>>();
-  List<List<int>> listCache = new List<List<int>>();
+  List<List<int>> listInt = [];
+  List<List<int>> listCache = [];
 
   int maxTotal(int x, int y) {
     int result = listCache[y][x];
@@ -74,27 +74,31 @@ int solve(List<String> listStr) {
 
   // converts the file to integers
   for (int y = 0; y < listStr.length; y++) {
-    var parts = listStr[y].split(' ');
-    List<int> tmpInt = new List<int>();
-    List<int> tmpCache = new List<int>();
-    parts.forEach((e) {
+    List<String> parts = listStr[y].split(' ');
+    List<int> tmpInt = [];
+    List<int> tmpCache = [];
+    for (String e in parts) {
       tmpInt.add(int.parse(e));
       tmpCache.add(-1);
-    });
+    }
     listInt.add(tmpInt);
     listCache.add(tmpCache);
   }
   // Search for the max total up to bottom
-  if (showDebug) listStr.forEach((str) => print(str));
+  if (showDebug) {
+    for (String str in listStr) {
+      print(str);
+    }
+  }
   return maxTotal(0, 0);
 }
 
 void main() {
   assert(solve(listStrTest) == 23);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(listStr);
   print('Maximum total from top to bottom of the given triangle: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

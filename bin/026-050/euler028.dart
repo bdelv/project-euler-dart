@@ -20,24 +20,26 @@ import 'dart:core';
 const int spiralSize = 1001;
 const bool showDebug = false;
 
-int solve(int _spiralSize) {
-  if (_spiralSize % 2 == 0)
-    throw new ArgumentError("Spiral size: $_spiralSize (should be odd)");
+int solve(int spiralSize) {
+  if (spiralSize % 2 == 0) {
+    throw ArgumentError("Spiral size: $spiralSize (should be odd)");
+  }
   // Creates the grid
-  List<List<int>> spiralGrid = new List<List<int>>(_spiralSize);
-  for (int i = 0; i < _spiralSize; i++)
-    spiralGrid[i] = new List<int>(_spiralSize);
+  List<List<int>> spiralGrid = [];
+  for (int i = 0; i < spiralSize; i++) {
+    spiralGrid.add(List<int>.filled(spiralSize, 0, growable: false));
+  }
   // Fill the grid
-  int _halfSize = (_spiralSize - 1) ~/ 2;
-  int x = _halfSize;
+  int halfSize = (spiralSize - 1) ~/ 2;
+  int x = halfSize;
   int y = x;
-  int _count = 1;
+  int count = 1;
   // Fills the center with the first value (1)
-  spiralGrid[y][x] = _count++;
+  spiralGrid[y][x] = count++;
   // Draw the squares around the center
-  for (int _size = 2; _size < _spiralSize; _size += 2) {
-    int incX;
-    int incY;
+  for (int size = 2; size < spiralSize; size += 2) {
+    int incX = 0;
+    int incY = 0;
     // Starts from top right cell
     x++;
     y--;
@@ -63,32 +65,36 @@ int solve(int _spiralSize) {
           break;
       }
       // fills the line
-      for (int j = 0; j < _size; j++) {
+      for (int j = 0; j < size; j++) {
         x += incX;
         y += incY;
-        spiralGrid[y][x] = _count++;
+        spiralGrid[y][x] = count++;
       }
     }
   }
-  if (showDebug)
-    for (int i = 0; i < _spiralSize; i++) print(spiralGrid[i].join(' '));
+  if (showDebug) {
+    for (int i = 0; i < spiralSize; i++) {
+      print(spiralGrid[i].join(' '));
+    }
+  }
   // Calculates the sum of the numbers on the diagonals
-  int _res = 1; // Center value: 1
-  for (int i = 1; i <= _halfSize; i++)
-    _res += spiralGrid[_halfSize + i][_halfSize + i] +
-        spiralGrid[_halfSize + i][_halfSize - i] +
-        spiralGrid[_halfSize - i][_halfSize - i] +
-        spiralGrid[_halfSize - i][_halfSize + i];
-  return _res;
+  int res = 1; // Center value: 1
+  for (int i = 1; i <= halfSize; i++) {
+    res += spiralGrid[halfSize + i][halfSize + i] +
+        spiralGrid[halfSize + i][halfSize - i] +
+        spiralGrid[halfSize - i][halfSize - i] +
+        spiralGrid[halfSize - i][halfSize + i];
+  }
+  return res;
 }
 
 void main() {
   assert(solve(5) == 101);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(spiralSize);
   print(
       "sum of the numbers on the diagonals in a $spiralSize by $spiralSize spiral: $result");
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

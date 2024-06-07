@@ -34,9 +34,9 @@ int solve(int maxFibonacciNumber) {
 void main() {
   assert(solve(100) == 44);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxFibonacciNumber);
   print('Sum of the even Fibonacci numbers <=$maxFibonacciNumber = $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

@@ -14,7 +14,7 @@ const bool showDebug = true;
 
 int solve(int maxPrime) {
   // fill primes list
-  List<int> primesList = new List<int>();
+  List<int> primesList = [];
 
   //int idxPrime = 0;
   primesList.add(2);
@@ -39,7 +39,7 @@ int solve(int maxPrime) {
     }
   }
   // search for circular primes
-  List<int> result = new List<int>();
+  List<int> result = [];
   for (int i = 0; i < primesList.length; i++) {
     int currPrime = primesList[i];
     String strCurrPrime = currPrime.toString();
@@ -60,9 +60,9 @@ int solve(int maxPrime) {
 }
 
 void main() {
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxPrime);
   print('Numbers of circular primes under $maxPrime = $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

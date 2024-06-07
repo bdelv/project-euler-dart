@@ -21,55 +21,57 @@ const bool showDebug = true;
 int solve(int digitsCount) {
   // list of available digits to make the pandigital numbers
   String availableDigits =
-      new List<String>.generate(digitsCount, (int idx) => (idx + 1).toString())
+      List<String>.generate(digitsCount, (int idx) => (idx + 1).toString())
           .join("");
 
   // list to store the unique results
-  List<int> results = new List<int>();
+  List<int> results = [];
 
   int digitsPermut(String permut, String remaining) {
-    int _res = 0;
+    int res = 0;
     if (remaining == "") {
       // we have 1 permutation. Let's test if we can find a pandigital multiplicand/multiplier/product
-      for (int count1 = 1; count1 < permut.length - 2; count1++)
+      for (int count1 = 1; count1 < permut.length - 2; count1++) {
         for (int count2 = count1;
             permut.length - ((count1 + count2) * 2 - 1) >= 0;
             count2++) {
-        int countp = permut.length - (count1 + count2);
-        if (countp == count1 + count2 || countp == count1 + count2 - 1) {
+          int countp = permut.length - (count1 + count2);
+          if (countp == count1 + count2 || countp == count1 + count2 - 1) {
             //int countProduct=permut.length-(count1+count2);
             int a = int.parse(permut.substring(0, count1));
-          int b = int.parse(permut.substring(count1, count1 + count2));
-          int p = int.parse(permut.substring(count1 + count2, permut.length));
-          if (a < b && a * b == p) {
+            int b = int.parse(permut.substring(count1, count1 + count2));
+            int p = int.parse(permut.substring(count1 + count2, permut.length));
+            if (a < b && a * b == p) {
               // we found a pandigital product
               if (!results.contains(p)) {
-              if (showDebug) print("$a x $b = $p");
-              results.add(p);
-              _res += p;
+                if (showDebug) print("$a x $b = $p");
+                results.add(p);
+                res += p;
+              }
             }
           }
         }
       }
-      return _res;
+      return res;
     }
     // we are still making the permutations
-    for (int _idx = 0; _idx < remaining.length; _idx++) {
-      _res += digitsPermut(permut + remaining.substring(_idx, _idx + 1),
-          remaining.replaceRange(_idx, _idx + 1, ""));
+    for (int idx = 0; idx < remaining.length; idx++) {
+      res += digitsPermut(permut + remaining.substring(idx, idx + 1),
+          remaining.replaceRange(idx, idx + 1, ""));
     }
-    return _res;
+    return res;
   }
+
   digitsPermut("", availableDigits);
 
   return results.fold(0, (prev, element) => prev + element);
 }
 
 void main() {
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(digitsCount);
   print(
       "Sum of all unique products whose multiplicand/multiplier/product identity can be written as a 1 through $digitsCount pandigital: $result");
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

@@ -14,9 +14,11 @@ import 'dart:core';
 const maxNumber = 11;
 const bool showDebug = true;
 
-int concatenatedProduct(int nb1, nb2) {
+int concatenatedProduct(int nb1, int nb2) {
   String strProduct = "";
-  for (int i = 1; i <= nb2; i++) strProduct += (nb1 * i).toString();
+  for (int i = 1; i <= nb2; i++) {
+    strProduct += (nb1 * i).toString();
+  }
   return int.parse(strProduct);
 }
 
@@ -34,7 +36,7 @@ int solve(int maxNumber) {
       int lenres = res.toString().length;
       if (lenres > 9) break;
       if (lenres == 9) {
-        if (isPandigital(res)) if (res > largestPandigital) {
+        if ((isPandigital(res)) && (res > largestPandigital)) {
           largestPandigital = res;
           if (showDebug) print("pandigital( $nb1, $nb2) = $res");
         }
@@ -51,10 +53,10 @@ void main() {
   assert(isPandigital(918273645));
   assert(!isPandigital(918273644));
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(maxNumber);
   print(
       "Largest 1 to 9 pandigital 9-digit number that can be formed as the concatenated product of an integer with (1,2, ... , n) where n > 1: $result");
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

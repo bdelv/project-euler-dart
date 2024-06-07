@@ -62,12 +62,14 @@ List<String> gridTxt = [
 
 int solve(int adjacentNumbersCount) {
   int maxProduct = 0;
-  List<int> tempList = new List<int>();
-  List<int> maxList;
+  List<int> tempList = [];
+  List<int> maxList = [];
 
   void testList() {
     int tmpProduct = 1;
-    tempList.forEach((tmp) => tmpProduct *= tmp);
+    for (int tmp in tempList) {
+      tmpProduct *= tmp;
+    }
     if (tmpProduct > maxProduct) {
       maxProduct = tmpProduct;
       maxList = tempList;
@@ -75,11 +77,12 @@ int solve(int adjacentNumbersCount) {
   }
 
   // converts the input data into an int matrix
-  List<List<int>> grid = new List<List<int>>();
+  List<List<int>> grid = [];
   for (int y = 0; y < gridTxt.length; y++) {
-    List tmpStr = gridTxt[y].toString().split(" ");
-    grid.add(new List<int>());
-    tmpStr.forEach((f) => grid[y].add(int.parse(f)));
+    grid.add([]);
+    for (String char in gridTxt[y].toString().split(" ")) {
+      grid[y].add(int.parse(char));
+    }
   }
 
   for (int y = 0; y < gridSize; y++) {
@@ -87,31 +90,35 @@ int solve(int adjacentNumbersCount) {
       //horizontal
       if (x + adjacentNumbersCount <= gridSize) {
         tempList.clear();
-        for (int i = 0; i < adjacentNumbersCount; i++)
+        for (int i = 0; i < adjacentNumbersCount; i++) {
           tempList.add(grid[y][x + i]);
+        }
         testList();
       }
       //vertical
       if (y + adjacentNumbersCount <= gridSize) {
         tempList.clear();
-        for (int i = 0; i < adjacentNumbersCount; i++)
+        for (int i = 0; i < adjacentNumbersCount; i++) {
           tempList.add(grid[y + i][x]);
+        }
         testList();
       }
       //diagonal 1
       if ((x + adjacentNumbersCount <= gridSize) &&
           (y + adjacentNumbersCount <= gridSize)) {
         tempList.clear();
-        for (int i = 0; i < adjacentNumbersCount; i++)
+        for (int i = 0; i < adjacentNumbersCount; i++) {
           tempList.add(grid[y + i][x + i]);
+        }
         testList();
       }
       //diagonal 2
       if ((x + adjacentNumbersCount <= gridSize) &&
           (y + adjacentNumbersCount <= gridSize)) {
         tempList.clear();
-        for (int i = 0; i < adjacentNumbersCount; i++)
+        for (int i = 0; i < adjacentNumbersCount; i++) {
           tempList.add(grid[y + adjacentNumbersCount - i - 1][x + i]);
+        }
         testList();
       }
     }
@@ -121,10 +128,10 @@ int solve(int adjacentNumbersCount) {
 }
 
 void main() {
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(adjacentNumbersCount);
   print(
       'greatest product of $adjacentNumbersCount adjacent numbers in the same direction: $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }

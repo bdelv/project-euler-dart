@@ -29,9 +29,9 @@ int solve(int number) {
 void main() {
   assert(solve(13195) == 29);
 
-  DateTime creationTime = new DateTime.now();
+  DateTime creationTime = DateTime.now();
   int result = solve(number);
   print('Largest prime factor of $number = $result');
-  DateTime finishTime = new DateTime.now();
+  DateTime finishTime = DateTime.now();
   print('Elapsed time: ${finishTime.difference(creationTime)}');
 }
