@@ -14,18 +14,6 @@ import 'dart:math';
 const problemNumber = 40;
 bool debugMode = false;
 
-int myPow(int exp) {
-  switch (exp) {
-    case -1:
-      return 0;
-    case 0:
-      return 1;
-    default:
-      return pow(10, exp).toInt();
-  }
-  // return (exp <= 0 ? 1 : pow(10, exp).toInt());
-}
-
 // 1 number: 9x10^0 begins at 0
 // 2 numbers: 9x10^1 begins 10^0 + 9x10^0x1
 // 3 numbers: 9x10^2 begins 10^1 + 9x10^2x2
@@ -39,9 +27,9 @@ int nbAtPos(int pos) {
   int powTen = 0;
   int posOfFirst = 1;
   int nb = 1;
-  while (pos >= posOfFirst + 9 * myPow(powTen) * (powTen + 1)) {
-    posOfFirst += 9 * myPow(powTen) * (powTen + 1);
-    nb += 9 * myPow(powTen);
+  while (pos >= posOfFirst + 9 * pow(10, powTen) * (powTen + 1)) {
+    posOfFirst += 9 * pow(10, powTen).toInt() * (powTen + 1);
+    nb += 9 * pow(10, powTen).toInt();
     powTen++;
   }
   nb += ((pos - posOfFirst) ~/ (powTen + 1));
