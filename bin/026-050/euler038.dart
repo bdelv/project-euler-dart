@@ -8,11 +8,10 @@ The same can be achieved by starting with 9 and multiplying by 1, 2, 3, 4, and 5
 which is the concatenated product of 9 and (1,2,3,4,5).
 What is the largest 1 to 9 pandigital 9-digit number that can be formed as the concatenated product of an integer with (1,2, ... , n) where n > 1?
 */
-
 import 'dart:core';
 
-const maxNumber = 11;
-const bool showDebug = true;
+const problemNumber = 38;
+bool debugMode = false;
 
 int concatenatedProduct(int nb1, int nb2) {
   String strProduct = "";
@@ -38,7 +37,7 @@ int solve(int maxNumber) {
       if (lenres == 9) {
         if ((isPandigital(res)) && (res > largestPandigital)) {
           largestPandigital = res;
-          if (showDebug) print("pandigital( $nb1, $nb2) = $res");
+          if (debugMode) print("pandigital( $nb1, $nb2) = $res");
         }
       }
     }
@@ -47,16 +46,14 @@ int solve(int maxNumber) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(concatenatedProduct(192, 3) == 192384576);
   assert(concatenatedProduct(9, 5) == 918273645);
   assert(isPandigital(192384576));
   assert(isPandigital(918273645));
   assert(!isPandigital(918273644));
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxNumber);
+  DateTime startTime = DateTime.now();
   print(
-      "Largest 1 to 9 pandigital 9-digit number that can be formed as the concatenated product of an integer with (1,2, ... , n) where n > 1: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(11)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

@@ -26,11 +26,10 @@ What is the first term in the Fibonacci sequence to contain 1000 digits?
 
 // solveInt() Works in VM but not after dart2js
 // solve() works in both
-
 import 'dart:core';
 
-const int digitsCount = 1000;
-const bool showDebug = true;
+const problemNumber = 25;
+bool debugMode = false;
 
 int solve(int digitsCount) {
   BigInt fibonacci = BigInt.one;
@@ -45,21 +44,19 @@ int solve(int digitsCount) {
     prev1 = fibonacci;
     fibonacci = prev1 + prev2;
   }
-  if (showDebug) {
+  if (debugMode) {
     print('First Fibonacci number with $digitsCount digits: $fibonacci');
   }
   return countFibo;
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(3) == 12);
   assert(solve(4) == 17);
   assert(solve(5) == 21);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(digitsCount);
+  DateTime startTime = DateTime.now();
   print(
-      'First term in the Fibonacci sequence to contain $digitsCount digits: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(1000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

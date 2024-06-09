@@ -9,11 +9,11 @@ and containing two digits in the numerator and denominator.
 
 If the product of these four fractions is given in its lowest common terms, find the value of the denominator.
 */
-
 import 'dart:core';
 import 'dart:math';
 
-const int maxDigits = 2;
+const problemNumber = 33;
+bool debugMode = false;
 
 // unoptimized fraction simplification
 String simplifyFraction(int nom, int denom) {
@@ -43,7 +43,7 @@ bool isCuriousFraction(int nom, int denom) {
   return false;
 }
 
-int solve() {
+int solve(int maxDigits) {
   int nomProduct = 1;
   int denomProduct = 1;
   for (int denom = pow(10, maxDigits - 1) as int;
@@ -51,7 +51,7 @@ int solve() {
       denom++) {
     for (int nom = pow(10, maxDigits - 1) as int; nom < denom; nom++) {
       if (isCuriousFraction(nom, denom)) {
-        print("$nom/$denom");
+        if (debugMode) print("$nom/$denom");
         nomProduct *= nom;
         denomProduct *= denom;
       }
@@ -62,15 +62,13 @@ int solve() {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(!isCuriousFraction(30, 50));
   assert(isCuriousFraction(49, 98));
   assert(!isCuriousFraction(40, 50)); // trivial examples excluded
   assert(!isCuriousFraction(39, 98));
 
-  DateTime creationTime = DateTime.now();
-  int result = solve();
+  DateTime startTime = DateTime.now();
   print(
-      'Lowest denominator of product of the curious fractions of $maxDigits digits = $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(2)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

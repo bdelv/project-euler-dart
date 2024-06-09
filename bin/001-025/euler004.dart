@@ -10,10 +10,14 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 import 'dart:core';
 import 'dart:math';
 
-const int nbDigits = 3;
-const bool showDebug = true;
+const problemNumber = 4;
+bool debugMode = false;
 
 int solve(int nbDigits) {
+  if (debugMode) {
+    print(
+        'largest palindrome made from the product of two $nbDigits-digit numbers');
+  }
   int maxPalindrome = 1;
   for (int i = pow(10, nbDigits - 1) as int; i < pow(10, nbDigits); i++) {
     for (int j = pow(10, nbDigits - 1) as int; j < pow(10, nbDigits); j++) {
@@ -21,20 +25,19 @@ int solve(int nbDigits) {
       if (tmpNb > maxPalindrome &&
           tmpNb.toString() == tmpNb.toString().split('').reversed.join('')) {
         maxPalindrome = tmpNb;
-        if (showDebug) print(maxPalindrome);
+        if (debugMode) print(maxPalindrome);
       }
     }
   }
+  if (debugMode) print('maxPalindrome=$maxPalindrome');
   return maxPalindrome;
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(2) == 9009);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(nbDigits);
+  DateTime startTime = DateTime.now();
   print(
-      'largest palindrome made from the product of two $nbDigits-digit numbers: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(3)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

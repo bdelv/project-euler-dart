@@ -13,12 +13,11 @@ The sum of these numbers is 1634 + 8208 + 9474 = 19316.
 
 Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
 */
-
 import 'dart:core';
 import 'dart:math' as math;
 
-const int nthPower = 5;
-const bool showDebug = true;
+const problemNumber = 30;
+bool debugMode = false;
 
 int solve(int nthPower) {
   // Cache the power calculations
@@ -48,20 +47,18 @@ int solve(int nthPower) {
     // It's a match!
     if (digitsCount > 1 && num == sum) {
       res += num;
-      if (showDebug) print("power($nthPower): $num");
+      if (debugMode) print("power($nthPower): $num");
     }
   }
-  if (showDebug) print("power($nthPower): sum = $res");
+  if (debugMode) print("power($nthPower): sum = $res");
   return res;
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(4) == 19316);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(nthPower);
+  DateTime startTime = DateTime.now();
   print(
-      "Sum of all the numbers that can be written as the sum of fifth powers of their digits: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(5)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

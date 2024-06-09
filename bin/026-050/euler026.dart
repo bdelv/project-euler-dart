@@ -20,11 +20,10 @@ It can be seen that 1/7 has a 6-digit recurring cycle.
 Find the value of d < 1000 for which 1/d contains the longest recurring cycle
 in its decimal fraction part.
 */
-
 import 'dart:core';
 
-const maxD = 1000;
-const bool showDebug = true;
+const problemNumber = 26;
+bool debugMode = false;
 
 String findCycle(int denominator) {
   String result = '';
@@ -58,7 +57,7 @@ int solve(int maxD) {
       maxValue = i;
     }
   }
-  if (showDebug) {
+  if (debugMode) {
     print("Cycle($maxD): $maxCycle");
     print("CycleLength($maxD): ${maxCycle.length}");
   }
@@ -66,13 +65,11 @@ int solve(int maxD) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(findCycle(6).length == 1);
   assert(findCycle(7).length == 6);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxD);
+  DateTime startTime = DateTime.now();
   print(
-      "Value of d < $maxD for which 1/d contains the longest recurring cycle in its decimal fraction part: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(1000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

@@ -14,11 +14,10 @@ and the square of the sum is 3025 − 385 = 2640.
 Find the difference between the sum of the squares of the first one hundred natural
 numbers and the square of the sum.
 */
-
 import 'dart:core';
 
-const int numberCount = 100;
-const bool showDebug = true;
+const problemNumber = 6;
+bool debugMode = false;
 
 int solve(int numberCount) {
   int squareOfSum = 0;
@@ -28,7 +27,7 @@ int solve(int numberCount) {
     sumOfSquare += i * i;
   }
   squareOfSum *= squareOfSum;
-  if (showDebug) {
+  if (debugMode) {
     print(
         "SquareOfSum($numberCount)=$squareOfSum, SumOfSquare($numberCount)=$sumOfSquare");
   }
@@ -36,12 +35,10 @@ int solve(int numberCount) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(10) == 2640);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(numberCount);
+  DateTime startTime = DateTime.now();
   print(
-      'Square_of_the_sum($numberCount) - sum_of_the_squares($numberCount) = $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(100)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

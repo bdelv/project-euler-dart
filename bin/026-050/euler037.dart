@@ -7,12 +7,11 @@
  Find the sum of the only eleven primes that are both truncatable from left to right and right to left.
  NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 */
-
 import 'dart:core';
 import 'dart:math' as math;
 
-const maxNumber = 11;
-const bool showDebug = true;
+const problemNumber = 37;
+bool debugMode = false;
 
 bool isPrime(int number) {
   if (number <= 1) {
@@ -79,7 +78,7 @@ int solve(int maxNumber) {
   int nb = 11;
   while (nbTruncatable < maxNumber) {
     if (isTruncatable(nb)) {
-      if (showDebug) print("$nb");
+      if (debugMode) print("$nb");
       sum += nb;
       nbTruncatable++;
     }
@@ -89,6 +88,7 @@ int solve(int maxNumber) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(isPrime(11));
   assert(isPrime(17));
   assert(isPrime(3797));
@@ -96,10 +96,7 @@ void main() {
   assert(isTruncatable(3797));
   assert(!isTruncatable(3798));
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxNumber);
+  DateTime startTime = DateTime.now();
   print(
-      "Sum of the only $maxNumber primes that are both truncatable from left to right and right to left: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(11)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

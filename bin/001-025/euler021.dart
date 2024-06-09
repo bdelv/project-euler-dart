@@ -12,11 +12,10 @@ therefore d(220) = 284. The proper divisors of 284 are 1, 2, 4, 71 and 142; so d
 
 Evaluate the sum of all the amicable numbers under 10000.
 */
-
 import 'dart:core';
 
-const int maxAmicablesNumber = 10000;
-const bool showDebug = true;
+const problemNumber = 21;
+bool debugMode = false;
 
 int sumOfDivisors(int num) {
   int sum = 0;
@@ -27,13 +26,14 @@ int sumOfDivisors(int num) {
 }
 
 int solve(int maxAmicablesNumber) {
+  if (debugMode) print('Sum of amicables < $maxAmicablesNumber:');
   int sum = 0;
   for (int i = 1; i < maxAmicablesNumber; i++) {
     int sumDiv = sumOfDivisors(i);
     if ((sumDiv != i) && (sumDiv < maxAmicablesNumber)) {
       if (sumOfDivisors(sumDiv) == i) {
         sum += i;
-        if (showDebug) print("amicable number: $sumDiv");
+        if (debugMode) print("amicable number: $sumDiv");
       }
     }
   }
@@ -41,12 +41,11 @@ int solve(int maxAmicablesNumber) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(sumOfDivisors(220) == 284);
   assert(sumOfDivisors(284) == 220);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxAmicablesNumber);
-  print('Sum of amicables < $maxAmicablesNumber: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(10000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

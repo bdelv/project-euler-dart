@@ -8,13 +8,16 @@ By starting with 1 and 2, the first 10 terms will be:
 By considering the terms in the Fibonacci sequence whose values do not exceed four million,
 find the sum of the even-valued terms.
 */
-
 import 'dart:core';
 
-const int maxFibonacciNumber = 4000000;
-const bool showDebug = false;
+const problemNumber = 2;
+bool debugMode = false;
 
 int solve(int maxFibonacciNumber) {
+  if (debugMode) {
+    print('Sum of the even Fibonacci numbers <=$maxFibonacciNumber');
+  }
+
   int fibonacci = 2;
   int prev1 = 1;
   int prev2 = 0;
@@ -24,19 +27,19 @@ int solve(int maxFibonacciNumber) {
     prev2 = prev1;
     prev1 = fibonacci;
     fibonacci = prev1 + prev2;
-    if (showDebug) print(fibonacci);
+    if (debugMode) print(fibonacci);
     if (fibonacci > maxFibonacciNumber) break;
     if (fibonacci.isEven) sum += fibonacci;
   }
+  if (debugMode) print('sum=$sum');
   return sum;
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(100) == 44);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxFibonacciNumber);
-  print('Sum of the even Fibonacci numbers <=$maxFibonacciNumber = $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(4000000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

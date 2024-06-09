@@ -23,8 +23,8 @@ What is the value of the first triangle number to have over five hundred divisor
 import 'dart:core';
 import 'dart:math' as math;
 
-const int nbDivisors = 500;
-const bool showDebug = true;
+const problemNumber = 12;
+bool debugMode = false;
 
 int solve(int nbDivisors) {
   int maxDivisors = 0;
@@ -42,7 +42,7 @@ int solve(int nbDivisors) {
     }
     if (tmpNbDivisors > maxDivisors) {
       maxDivisors = tmpNbDivisors;
-      if (showDebug) {
+      if (debugMode) {
         print(
             "Nb divisors found: $maxDivisors (from triangle number $triangleNumber)");
       }
@@ -52,11 +52,10 @@ int solve(int nbDivisors) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(5) == 28);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(nbDivisors);
-  print('First triangle number with at least $nbDivisors divisors: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(500)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

@@ -18,7 +18,8 @@ What is the total of all the name scores in the file?
 import 'dart:core';
 import 'dart:convert';
 
-const bool showDebug = false;
+const problemNumber = 22;
+bool debugMode = false;
 
 List<String> listStr = [
   "MARY",
@@ -5191,7 +5192,7 @@ int calcScore(String name, int idx) {
   List<int> listA = utf8.encode("A");
   int valueOfA = listA[0];
   int sum = bytes.fold(0, (int prev, int e) => prev + e - valueOfA + 1);
-  if (showDebug) print("$name: sum=$sum, idx=$idx, score=${sum * idx}");
+  if (debugMode) print("$name: sum=$sum, idx=$idx, score=${sum * idx}");
   return sum * idx;
 }
 
@@ -5206,9 +5207,9 @@ int solve() {
 }
 
 void main() {
-  DateTime creationTime = DateTime.now();
-  int result = solve();
-  print('Total of the scores of the given words: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  assert(debugMode = true);
+
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve()} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

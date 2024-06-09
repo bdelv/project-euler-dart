@@ -22,12 +22,11 @@ e.g. |11| = 11 and |−4| = 4
 Find the product of the coefficients, a and b, for the quadratic expression that produces
 the maximum number of primes for consecutive values of n, starting with n = 0.
 */
-
 import 'dart:core';
 import 'dart:math' as math;
 
-const int maxValue = 1000;
-const bool showDebug = true;
+const problemNumber = 27;
+bool debugMode = false;
 
 bool isPrime(int number) {
   if (number <= 1) {
@@ -78,7 +77,7 @@ int solve(int maxValue) {
     for (int b = -maxValue + 1; b < maxValue; b++) {
       tmpCount = quadraticPrimesCount(a, b);
       if (tmpCount > maxCount) {
-        if (showDebug) print("QuadraticPrimesCount($a, $b) = $tmpCount");
+        if (debugMode) print("QuadraticPrimesCount($a, $b) = $tmpCount");
         maxCount = tmpCount;
         res = a * b;
       }
@@ -88,6 +87,7 @@ int solve(int maxValue) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(isPrime(7));
   assert(isPrime(11));
   assert(isPrime(19));
@@ -96,10 +96,7 @@ void main() {
   assert(quadraticPrimesCount(1, 41) == 40);
   assert(quadraticPrimesCount(-79, 1601) == 80);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxValue);
+  DateTime startTime = DateTime.now();
   print(
-      "Product of the coefficients, a and b, for the quadratic expression that produces the maximum number of primes for consecutive values of n (for |a|<$maxValue and |b|<$maxValue: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(1000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

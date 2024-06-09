@@ -33,8 +33,8 @@ direction (up, down, left, right, or diagonally) in the 20×20 grid?
 
 import 'dart:core';
 
-const int adjacentNumbersCount = 4;
-const showDebug = true;
+const problemNumber = 11;
+bool debugMode = false;
 
 const int gridSize = 20;
 List<String> gridTxt = [
@@ -61,6 +61,10 @@ List<String> gridTxt = [
 ];
 
 int solve(int adjacentNumbersCount) {
+  if (debugMode) {
+    print(
+        'greatest product of $adjacentNumbersCount adjacent numbers in the same direction:');
+  }
   int maxProduct = 0;
   List<int> tempList = [];
   List<int> maxList = [];
@@ -123,15 +127,14 @@ int solve(int adjacentNumbersCount) {
       }
     }
   }
-  if (showDebug) print('Numbers: $maxList');
+  if (debugMode) print('Numbers: $maxList');
   return maxProduct;
 }
 
 void main() {
-  DateTime creationTime = DateTime.now();
-  int result = solve(adjacentNumbersCount);
+  assert(debugMode = true);
+
+  DateTime startTime = DateTime.now();
   print(
-      'greatest product of $adjacentNumbersCount adjacent numbers in the same direction: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(4)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

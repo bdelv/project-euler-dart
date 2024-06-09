@@ -14,13 +14,16 @@ It can be verified that the sum of the numbers on the diagonals is 101.
 
 What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way?
 */
-
 import 'dart:core';
 
-const int spiralSize = 1001;
-const bool showDebug = false;
+const problemNumber = 28;
+bool debugMode = false;
 
 int solve(int spiralSize) {
+  if (debugMode) {
+    print(
+        "sum of the numbers on the diagonals in a $spiralSize by $spiralSize spiral:");
+  }
   if (spiralSize % 2 == 0) {
     throw ArgumentError("Spiral size: $spiralSize (should be odd)");
   }
@@ -72,7 +75,7 @@ int solve(int spiralSize) {
       }
     }
   }
-  if (showDebug) {
+  if (debugMode) {
     for (int i = 0; i < spiralSize; i++) {
       print(spiralGrid[i].join(' '));
     }
@@ -89,12 +92,10 @@ int solve(int spiralSize) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(5) == 101);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(spiralSize);
+  DateTime startTime = DateTime.now();
   print(
-      "sum of the numbers on the diagonals in a $spiralSize by $spiralSize spiral: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(1001)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

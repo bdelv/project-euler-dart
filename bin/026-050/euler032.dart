@@ -12,13 +12,16 @@ Find the sum of all products whose multiplicand/multiplier/product identity can 
 
 HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
 */
-
 import 'dart:core';
 
-const int digitsCount = 9;
-const bool showDebug = true;
+const problemNumber = 32;
+bool debugMode = false;
 
 int solve(int digitsCount) {
+  if (debugMode) {
+    print(
+        "Sum of all unique products whose multiplicand/multiplier/product identity can be written as a 1 through $digitsCount pandigital:");
+  }
   // list of available digits to make the pandigital numbers
   String availableDigits =
       List<String>.generate(digitsCount, (int idx) => (idx + 1).toString())
@@ -44,7 +47,7 @@ int solve(int digitsCount) {
             if (a < b && a * b == p) {
               // we found a pandigital product
               if (!results.contains(p)) {
-                if (showDebug) print("$a x $b = $p");
+                if (debugMode) print("$a x $b = $p");
                 results.add(p);
                 res += p;
               }
@@ -68,10 +71,9 @@ int solve(int digitsCount) {
 }
 
 void main() {
-  DateTime creationTime = DateTime.now();
-  int result = solve(digitsCount);
+  assert(debugMode = true);
+
+  DateTime startTime = DateTime.now();
   print(
-      "Sum of all unique products whose multiplicand/multiplier/product identity can be written as a 1 through $digitsCount pandigital: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(9)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

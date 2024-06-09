@@ -15,8 +15,8 @@ The use of "and" when writing out numbers is in compliance with British usage.
 
 import 'dart:core';
 
-const int maxNb = 1000;
-const bool showDebug = true;
+const problemNumber = 17;
+bool debugMode = false;
 
 Map<int, String> mapNumbers = {
   1: 'one',
@@ -69,29 +69,32 @@ int lettersCount(String str) {
   for (int i = 0; i < str.length; i++) {
     if ((str[i] != ' ') && (str[i] != '-')) sum++;
   }
-  if (showDebug) print("$str / $sum letters");
+  if (debugMode) print("$str / $sum letters");
   return sum;
 }
 
 int solve(int maxNb) {
+  if (debugMode) {
+    print(
+        'Total number of letters in 1 to $maxNb (inclusive) written out in words:');
+  }
   int sum = 0;
   for (int i = 1; i <= maxNb; i++) {
     sum += lettersCount(number2Text(i));
   }
+  if (debugMode) print('sum=$sum');
   return sum;
 }
 
 void main() {
+  assert(debugMode = true);
   assert(number2Text(342) == "three hundred and forty-two");
   assert(number2Text(115) == "one hundred and fifteen");
   assert(lettersCount(number2Text(342)) == 23);
   assert(lettersCount(number2Text(115)) == 20);
   assert(solve(5) == 19);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxNb);
+  DateTime startTime = DateTime.now();
   print(
-      'Total number of letters in 1 to $maxNb (inclusive) written out in words: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(1000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

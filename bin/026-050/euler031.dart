@@ -10,19 +10,22 @@ It is possible to make £2 in the following way:
 1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
 How many different ways can £2 be made using any number of coins?
 */
-
 import 'dart:core';
 
-const int cashAmount = 200;
-const bool showDebug = false;
+const problemNumber = 31;
+bool debugMode = false;
 
 List<int> coinsAvailable = [200, 100, 50, 20, 10, 5, 2, 1];
 
 int solve(int cashAmount) {
+  if (debugMode) {
+    print(
+        "Dfferent ways $cashAmount pences can be made using any number of the coins $coinsAvailable:");
+  }
   int coinsPermut(
       int remaining, List<int> coinsTaken, List<int> coinsAvailable) {
     if (remaining == 0) {
-      if (showDebug) print(coinsTaken);
+      if (debugMode) print(coinsTaken);
       return 1;
     }
     int res = 0;
@@ -50,10 +53,9 @@ int solve(int cashAmount) {
 }
 
 void main() {
-  DateTime creationTime = DateTime.now();
-  int result = solve(cashAmount);
+  assert(debugMode = true);
+
+  DateTime startTime = DateTime.now();
   print(
-      "Dfferent ways $cashAmount pences can be made using any number of the coins $coinsAvailable: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(200)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

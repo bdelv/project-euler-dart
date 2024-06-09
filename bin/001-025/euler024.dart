@@ -11,14 +11,16 @@ we call it lexicographic order. The lexicographic permutations of 0, 1 and 2 are
 
 What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
 */
-
 import 'dart:core';
 
-const int digitsCount = 9;
-const int nthPermutation = 1000000;
-const bool showDebug = false;
+const problemNumber = 24;
+bool debugMode = false;
 
 int solve(int digitsCount, int nthPermutation) {
+  if (debugMode) {
+    print(
+        "millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9:");
+  }
   int count = 0;
 
   // Create the initial string
@@ -31,7 +33,7 @@ int solve(int digitsCount, int nthPermutation) {
     if (count >= nthPermutation) return (leftPart + rightPart);
     if (rightPart == "") {
       count++;
-      if (showDebug) print(leftPart);
+      // if (debugMode) print(leftPart);
     }
     for (int i = 0; i < rightPart.length; i++) {
       if (count >= nthPermutation) {
@@ -51,12 +53,10 @@ int solve(int digitsCount, int nthPermutation) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(2, 6) == 210);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(digitsCount, nthPermutation);
+  DateTime startTime = DateTime.now();
   print(
-      "millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(9, 1000000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

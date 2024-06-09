@@ -11,14 +11,14 @@ Note:
 - solveInt(): uses Dart internal BigInt (doesn't work with dart2js)
 - solve(): uses a simplified BigInt class (works in the VM and in Javascript)
 */
-
 import 'dart:core';
 
-const int N = 100;
-const showDebug = true;
+const problemNumber = 20;
+bool debugMode = false;
 
 // ------------ Method 1: Uses dart internal BigInt (Doesn't work in Javascript) -----------
 int solve(int N) {
+  if (debugMode) print('sum of the digits in the number $N!:');
   // Factorial
   BigInt result = BigInt.one;
   for (int i = 2; i <= N; i++) {
@@ -30,16 +30,15 @@ int solve(int N) {
   for (int i = 0; i < resStr.length; i++) {
     sum += int.parse(resStr[i]);
   }
-  if (showDebug) print('$N!: $result');
+  if (debugMode) print('$N!: $result');
   return sum;
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(10) == 27);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(N);
-  print('sum of the digits in the number $N!: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(100)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

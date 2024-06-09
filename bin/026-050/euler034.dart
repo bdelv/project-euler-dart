@@ -5,10 +5,11 @@ Find the sum of all numbers which are equal to the sum of the factorial of their
 
 Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 */
-
 import 'dart:core';
 
-const bool showDebug = true;
+const problemNumber = 34;
+bool debugMode = false;
+
 List<int> factorials = List<int>.filled(10, 0, growable: false);
 
 int searchCuriousNumbers(String num) {
@@ -27,7 +28,7 @@ int searchCuriousNumbers(String num) {
       sum += factorials[int.parse(num.substring(i, i + 1))];
     }
     if (sum > 2 && sum == numInt) {
-      if (showDebug) print('Curious number: $sum');
+      if (debugMode) print('Curious number: $sum');
       res += numInt;
     }
   }
@@ -48,9 +49,9 @@ int solve() {
 }
 
 void main() {
-  DateTime creationTime = DateTime.now();
-  int result = solve();
-  print('Sum of the curious numbers = $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  assert(debugMode = true);
+
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve()} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

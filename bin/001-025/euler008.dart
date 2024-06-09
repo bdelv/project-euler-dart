@@ -8,11 +8,10 @@ are 9 × 9 × 8 × 9 = 5832.
 Find the thirteen adjacent digits in the 1000-digit number that have the greatest
 product. What is the value of this product?
 */
-
 import 'dart:core';
 
-const int adjacentDigitsCount = 13;
-const bool showDebug = true;
+const problemNumber = 8;
+bool debugMode = false;
 
 int solve(int adjacentDigitsCount) {
   const String number = '73167176531330624919225119674426574742355349194934'
@@ -38,6 +37,10 @@ int solve(int adjacentDigitsCount) {
 
   int maxProduct = 0;
   String maxSub = '';
+  if (debugMode) {
+    print(
+        'max product of $adjacentDigitsCount adjacent digits in the 1000-digit given number:');
+  }
   for (int i = 0; i <= number.length - adjacentDigitsCount; i++) {
     String sub = number.substring(i, i + adjacentDigitsCount);
     int tempProduct = 1;
@@ -49,17 +52,15 @@ int solve(int adjacentDigitsCount) {
       maxSub = sub;
     }
   }
-  if (showDebug) print('Max Sub($adjacentDigitsCount): $maxSub');
+  if (debugMode) print('Max Sub($adjacentDigitsCount): $maxSub');
   return maxProduct;
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(4) == 5832);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(adjacentDigitsCount);
+  DateTime startTime = DateTime.now();
   print(
-      'max product of $adjacentDigitsCount adjacent digits in the 1000-digit given number: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(13)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

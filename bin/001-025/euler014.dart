@@ -17,11 +17,10 @@ Which starting number, under one million, produces the longest chain?
 
 NOTE: Once the chain starts the terms are allowed to go above one million
 */
-
 import 'dart:core';
 
-const int startingUnder = 1000000;
-const bool showDebug = true;
+const problemNumber = 14;
+bool debugMode = false;
 
 int calcChainLength(int start) {
   int nb = 1;
@@ -37,6 +36,10 @@ int calcChainLength(int start) {
 }
 
 int solve(int startingUnder) {
+  if (debugMode) {
+    print(
+        'Starting number (under $startingUnder) that produces the longest chain:');
+  }
   int maxChainLength = 0;
   int startingNbMaxSum = 0;
   for (int i = 1; i < startingUnder; i++) {
@@ -46,17 +49,15 @@ int solve(int startingUnder) {
       startingNbMaxSum = i;
     }
   }
-  if (showDebug) print('Max Chain length($startingUnder): $maxChainLength');
+  if (debugMode) print('Max Chain length($startingUnder): $maxChainLength');
   return startingNbMaxSum;
 }
 
 void main() {
+  assert(debugMode = true);
   assert(calcChainLength(13) == 10);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(startingUnder);
+  DateTime startTime = DateTime.now();
   print(
-      'Starting number (under $startingUnder) that produces the longest chain: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(1000000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

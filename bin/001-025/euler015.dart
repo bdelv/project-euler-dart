@@ -7,14 +7,14 @@ there are exactly 6 routes to the bottom right corner.
 
 How many such routes are there through a 20×20 grid?
 */
-
 import 'dart:core';
 
-const int gridSizeX = 20;
-const int gridSizeY = 20;
-const bool showDebug = false;
+const problemNumber = 15;
+bool debugMode = false;
 
 int solve(int gridSizeX, int gridSizeY) {
+  if (debugMode) print('Number of routes on a $gridSizeX x $gridSizeY grid:');
+
   List<List<int>> cacheRoutesCount = [];
   for (int y = 0; y <= gridSizeY; y++) {
     cacheRoutesCount.add(List<int>.filled(gridSizeX + 1, -1, growable: false));
@@ -25,7 +25,7 @@ int solve(int gridSizeX, int gridSizeY) {
       cacheRoutesCount[nby][nbx] =
           calcRoutesCount(nbx - 1, nby) + calcRoutesCount(nbx, nby - 1);
     }
-    if (showDebug) print("Cache[$nby][$nbx]=${cacheRoutesCount[nby][nbx]}");
+    if (debugMode) print("Cache[$nby][$nbx]=${cacheRoutesCount[nby][nbx]}");
     return cacheRoutesCount[nby][nbx];
   }
 
@@ -33,11 +33,10 @@ int solve(int gridSizeX, int gridSizeY) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(2, 2) == 6);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(gridSizeX, gridSizeY);
-  print('Number of routes on a $gridSizeX x $gridSizeY grid: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(20, 20)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

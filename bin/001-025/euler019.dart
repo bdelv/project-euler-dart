@@ -17,10 +17,8 @@ You are given the following information, but you may prefer to do some research 
 How many Sundays fell on the first of the month during the twentieth century
 (1 Jan 1901 to 31 Dec 2000)?
 */
-
-const int startingYear = 1901;
-const int endingYear = 2000;
-const bool showDebug = true;
+const problemNumber = 19;
+bool debugMode = false;
 
 bool isLeapYear(int year) {
   if (year % 100 == 0) return (year % 400 == 0);
@@ -42,6 +40,10 @@ int daysCountInMonth(int month, int year) {
 }
 
 int solve(int startingYear, int endingYear) {
+  if (debugMode) {
+    print(
+        'Number of Sundays that fell on the first of the month between $startingYear and $endingYear:');
+  }
   int currentDay = 0;
   int sundaysCount = 0;
   int currentYear;
@@ -53,7 +55,7 @@ int solve(int startingYear, int endingYear) {
   }
   // Nb of Sundays between StartingYear and EndingYear
   for (; currentYear <= endingYear; currentYear++) {
-    if (showDebug) {
+    if (debugMode) {
       print(
           'Number of Sundays that fell on the first of the month during the year $currentYear: $currentDay');
     }
@@ -66,6 +68,8 @@ int solve(int startingYear, int endingYear) {
 }
 
 void main() {
+  assert(debugMode = true);
+
   assert(isLeapYear(2000));
   assert(isLeapYear(2004));
   assert(!isLeapYear(1900));
@@ -84,10 +88,7 @@ void main() {
   assert(daysCountInMonth(11, 1900) == 30);
   assert(daysCountInMonth(12, 1900) == 31);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(startingYear, endingYear);
+  DateTime startTime = DateTime.now();
   print(
-      'Number of Sundays that fell on the first of the month between $startingYear and $endingYear: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(1901, 2000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

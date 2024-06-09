@@ -31,11 +31,11 @@ NOTE: As there are only 16384 routes, it is possible to solve this problem by tr
 However, Problem 67, is the same challenge with a triangle containing one-hundred rows;
 it cannot be solved by brute force, and requires a clever method! ;o)
 */
-
 import 'dart:core';
 import 'dart:math';
 
-const showDebug = true;
+const problemNumber = 18;
+bool debugMode = false;
 
 List<String> listStrTest = ["3", "7 4", "2 4 6", "8 5 9 3"];
 
@@ -58,6 +58,9 @@ List<String> listStr = [
 ];
 
 int solve(List<String> listStr) {
+  if (debugMode) {
+    print('Maximum total from top to bottom of the given triangle:');
+  }
   List<List<int>> listInt = [];
   List<List<int>> listCache = [];
 
@@ -85,7 +88,7 @@ int solve(List<String> listStr) {
     listCache.add(tmpCache);
   }
   // Search for the max total up to bottom
-  if (showDebug) {
+  if (debugMode) {
     for (String str in listStr) {
       print(str);
     }
@@ -94,11 +97,10 @@ int solve(List<String> listStr) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(solve(listStrTest) == 23);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(listStr);
-  print('Maximum total from top to bottom of the given triangle: $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(listStr)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

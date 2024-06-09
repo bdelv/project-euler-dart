@@ -5,12 +5,11 @@ There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73
 
 How many circular primes are there below one million?
 */
-
 import 'dart:core';
 import 'dart:math';
 
-const int maxPrime = 1000000;
-const bool showDebug = true;
+const problemNumber = 35;
+bool debugMode = false;
 
 int solve(int maxPrime) {
   // fill primes list
@@ -53,16 +52,16 @@ int solve(int maxPrime) {
     }
     if (circular) {
       if (!result.contains(currPrime)) result.add(currPrime);
-      if (showDebug) print(strCurrPrime);
+      if (debugMode) print(strCurrPrime);
     }
   }
   return result.length;
 }
 
 void main() {
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxPrime);
-  print('Numbers of circular primes under $maxPrime = $result');
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+  assert(debugMode = true);
+
+  DateTime startTime = DateTime.now();
+  print(
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(1000000)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }

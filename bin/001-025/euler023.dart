@@ -19,11 +19,10 @@ cannot be expressed as the sum of two abundant numbers is less than this limit.
 
 Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
 */
-
 import 'dart:core';
 
-const maxNumber = 28123;
-const bool showDebug = true;
+const problemNumber = 23;
+bool debugMode = false;
 
 int sumOfProperDivisors(int num) {
   if (num == 1) return 1;
@@ -35,6 +34,10 @@ int sumOfProperDivisors(int num) {
 }
 
 int solve(int maxNumber) {
+  if (debugMode) {
+    print(
+        "Sum of all the positive integers (<=$maxNumber) which cannot be written as the sum of two abundant numbers:");
+  }
   List<int> abundantList = [];
   List<bool> sumAbundants =
       List<bool>.filled(maxNumber + 1, false, growable: false);
@@ -52,7 +55,7 @@ int solve(int maxNumber) {
       if (sum <= maxNumber) sumAbundants[sum] = true;
     }
   }
-  if (showDebug) print("abundant numbers: $abundantList");
+  if (debugMode) print("abundant numbers: $abundantList");
   // Calculate the sum of the numbers that cannot be written by the sum of 2 abundant numbers
   int total = 0;
   for (int i = 1; i <= maxNumber; i++) {
@@ -62,12 +65,10 @@ int solve(int maxNumber) {
 }
 
 void main() {
+  assert(debugMode = true);
   assert(sumOfProperDivisors(28) == 28);
 
-  DateTime creationTime = DateTime.now();
-  int result = solve(maxNumber);
+  DateTime startTime = DateTime.now();
   print(
-      "Sum of all the positive integers (<=$maxNumber) which cannot be written as the sum of two abundant numbers: $result");
-  DateTime finishTime = DateTime.now();
-  print('Elapsed time: ${finishTime.difference(creationTime)}');
+      "Problem ${problemNumber.toString().padLeft(3, '0')}: Solution=${solve(28123)} (in ${DateTime.now().difference(startTime).inMilliseconds}ms)");
 }
