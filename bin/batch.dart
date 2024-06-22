@@ -1,6 +1,6 @@
-// Solves all days/parts of a specific year
-// usage: dart bin/year.dart 2023
-// Note: make sure you have downloaded the input files using get_inputs.dart
+// Solves sequentially problems in a specirfied range
+// usage: dart bin/batch.dart 1 43
+// arguments are starting and ending problem number
 import 'dart:io';
 
 const int minPb = 1;
