@@ -46,7 +46,7 @@ int solve(int nb) {
     if (rightPart == '') {
       // print('$leftPart $rightPart');
       if (isPrime(int.parse(leftPart + rightPart))) {
-        print('$leftPart $rightPart');
+        if (debugMode) print('$leftPart $rightPart');
         return leftPart + rightPart;
       }
     }
